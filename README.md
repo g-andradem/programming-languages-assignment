@@ -84,3 +84,101 @@ vcpkg --version
 
 16 x 16
 32 x 32 Talvez depois
+
+
+## Divisão
+
+meu-jogo/
+│
+├── CMakeLists.txt
+├── CMakePresets.json
+├── .gitignore
+│
+├── assets/
+│   ├── textures/
+│   │   ├── player/
+│   │   ├── enemies/
+│   │   ├── tiles/
+│   │   ├── maps/
+│   │   └── ui/
+│   │
+│   ├── fonts/
+│   │
+│   ├── sounds/
+│   │   ├── music/
+│   │   └── sfx/
+│   │
+│   └── data/
+│       ├── maps/
+│       ├── enemies/
+│       ├── items/
+│       └── characters/
+│
+├── src/
+│   ├── main.cpp
+│   │
+│   ├── core/ (core/ → cérebro do jogo, Aqui ficam coisas que controlam o funcionamento geral)
+│   │   ├── Game.hpp
+│   │   ├── Game.cpp
+│   │   ├── GameState.hpp
+│   │   ├── GameState.cpp
+│   │   ├── GameTime.hpp
+│   │   └── GameTime.cpp
+│   │
+│   ├── player/ (player/ → personagem, Tudo relacionado ao personagem principal)
+│   │   ├── Player.hpp
+│   │   ├── Player.cpp
+│   │   ├── Character.hpp
+│   │   └── Character.cpp
+│   │
+│   ├── enemies/
+│   │   ├── Enemy.hpp
+│   │   ├── Enemy.cpp
+│   │   ├── EnemyManager.hpp
+│   │   └── EnemyManager.cpp
+│   │
+│   ├── world/
+│   │   ├── Map.hpp
+│   │   ├── Map.cpp
+│   │   ├── Tile.hpp
+│   │   ├── Tile.cpp
+│   │   ├── World.hpp
+│   │   └── World.cpp
+│   │
+│   ├── screens/
+│   │   ├── MainMenu.hpp
+│   │   ├── MainMenu.cpp
+│   │   ├── GameScreen.hpp
+│   │   ├── GameScreen.cpp
+│   │   ├── TutorialScreen.hpp
+│   │   ├── TutorialScreen.cpp
+│   │   ├── CharacterCustomization.hpp
+│   │   ├── CharacterCustomization.cpp
+│   │   ├── ScoreScreen.hpp
+│   │   └── ScoreScreen.cpp
+│   │
+│   ├── ui/
+│   │   ├── Button.hpp
+│   │   ├── Button.cpp
+│   │   ├── Label.hpp
+│   │   ├── Label.cpp
+│   │   └── UIManager.hpp
+│   │
+│   ├── systems/
+│   │   ├── CollisionSystem.hpp
+│   │   ├── CollisionSystem.cpp
+│   │   ├── InputSystem.hpp
+│   │   ├── InputSystem.cpp
+│   │   ├── AnimationSystem.hpp
+│   │   └── AnimationSystem.cpp
+│   │
+│   └── utils/
+│       ├── ResourceManager.hpp
+│       ├── ResourceManager.cpp
+│       ├── Constants.hpp
+│       └── Utils.hpp
+│
+├── saves/
+│
+├── build/                 ← .gitignore
+└── vcpkg_installed/       ← .gitignore

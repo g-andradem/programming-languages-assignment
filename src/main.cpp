@@ -41,8 +41,8 @@ int main()
             }
         }
 
-        float speed = 200.f; // pixels por segundo
-        float deltaTime = clock.restart().asSeconds();
+        float speed = 1.f; // pixels por segundo
+        // float deltaTime = clock.restart().asSeconds();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
             player.move({-speed, 0.f});

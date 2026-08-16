@@ -1,92 +1,205 @@
 # programming-languages-assignment
 
-LEMBRAR: .GITIGNROE PARA VCPKG_INSTALLED
-
 ## Ferramentas Utilizadas
 SFML + CMake + vcpkg + VS Code.
 
-### SFML
-É a biblioteca que realmente vai fornecer as funcionalidades do jogo:
+# 🎮 SFML
+É a biblioteca que fornece as funcionalidades do jogo
 
-janela
-teclado/mouse
-gráficos 2D
-sprites/texturas
-áudio
-fontes
-eventos
-etc.
+- janela
+- teclado/mouse
+- gráficos 2D
+- sprites/texturas
+- áudio
+- fontes
+- eventos
+- etc.
 
+# ⚙️ Entendendo o `CMakeLists.txt`
 
-### CMake
-Ele não é a biblioteca do jogo e nem um compilador.
+O `CMakeLists.txt` é o arquivo responsável por configurar como o projeto será compilado e quais bibliotecas serão utilizadas.
 
-Ele vai dizer algo como:
+### 1. Versão mínima do CMake
 
-"Meu projeto tem esses arquivos .cpp, usa C++17, precisa da SFML e deve gerar um executável."
+```cmake
+cmake_minimum_required(VERSION 3.20)
+```
 
-A grande vantagem é que você não precisa ficar fazendo manualmente:
-g++ main.cpp ... -lsfml-graphics -lsfml-window ...
+Define a **versão mínima do CMake** necessária para compilar o projeto.
 
-cmake_minimum_required(VERSION 3.20) <- versão minima do CMake
+---
 
-project(MeuRPG) <- nome do projeto
+### 2. Nome do projeto
 
-set(CMAKE_CXX_STANDARD 17) e set(CMAKE_CXX_STANDARD_REQUIRED ON) <- versão do C++
+```cmake
+project(MeuRPG)
+```
 
-find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED) <- encontra o SMFL e puxa oq é preciso
+Define o nome do projeto como `MeuRPG`.
 
-add_executable(MeuRPG src/main.cpp) <- vamos criar no projeto um executavel (adicionar todos os .cpp dps) 
-ex.: 
-add_executable(RPG
+---
+
+### 3. Versão do C++
+
+```cmake
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+```
+
+Define que o projeto utilizará o **C++17**.
+
+* `CMAKE_CXX_STANDARD 17` → seleciona o C++17.
+* `CMAKE_CXX_STANDARD_REQUIRED ON` → exige que o compilador suporte C++17.
+
+---
+
+### 4. Encontrando o SFML
+
+```cmake
+find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
+```
+
+Procura a **SFML 3** instalada no sistema e solicita os componentes necessários:
+
+| Componente | Função                                          |
+| ---------- | ----------------------------------------------- |
+| `Graphics` | Sprites, texturas, fontes, desenhos etc.        |
+| `Window`   | Janelas e gerenciamento de eventos              |
+| `System`   | Vetores, tempo e outras funcionalidades básicas |
+
+O `REQUIRED` significa que o CMake considera o SFML **obrigatório**. Se ele não for encontrado, a configuração do projeto falhará.
+
+---
+
+### 5. Adicionando os arquivos `.cpp`
+
+```cmake
+add_executable(MeuRPG src/main.cpp)
+```
+
+Cria o executável `MeuRPG` utilizando o arquivo `main.cpp`.
+
+Conforme o projeto cresce, podemos adicionar os outros arquivos `.cpp`:
+
+```cmake
+add_executable(MeuRPG
     src/main.cpp
     src/Game.cpp
     src/Player.cpp
     src/Map.cpp
 )
+```
 
-target_link_libraries(RPG PRIVATE SFML::Graphics SFML::Window SFML::System) <- fala que o executavel precisa dessas bibliotecas do SFML
+> 💡 Cada novo arquivo `.cpp` que fizer parte da compilação pode ser adicionado aqui.
 
+---
 
-### vcpkg
+### 6. Bibliotecas necessárias
+
+```cmake
+target_link_libraries(
+    MeuRPG
+    PRIVATE
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+)
+```
+
+Informa ao CMake que o executável `MeuRPG` precisa das bibliotecas do SFML.
+
+* `SFML::Graphics` → recursos gráficos.
+* `SFML::Window` → janela e eventos.
+* `SFML::System` → funcionalidades básicas do SFML.
+* `PRIVATE` → essas dependências são necessárias para o próprio executável.
+
+# ⚙️ Vcpkg
 O vcpkg é um gerenciador de bibliotecas C/C++.
 
-Pensa nele como uma mistura conceitual de: pip + requirements.txt do Python.
+Mistura conceitual de: pip + requirements.txt do Python.
 
-Você pode dizer:
-
-- vcpkg install sfml
-
-e ele instala a SFML e as dependências necessárias.
-
-"name": "meu-rpg" <- nome do nosso projeto
-"version-string": "0.1.0" <- versão do projeto
-"dependencies": ["sfml"] <- dependencias
+* `"name": "meu-rpg"` → nome do nosso projeto
+* `"version-string": "0.1.0"` → versão do projeto
+* `"dependencies": ["sfml"]` → dependencias
 
 
-## CMakePresets
+# ⚙️ Sobre o CMakePresets
 
+```cmake
+"CMAKE_TOOLCHAIN_FILE": "$env{HOME}/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
+```
+aponta para o arquivo do vcpkg que permite ao CMake conversar com o vcpkg.
 
-"CMAKE_TOOLCHAIN_FILE": "$env{HOME}/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"<- aponta para o arquivo do vcpkg que permite ao CMake conversar com o vcpkg.
+```
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "RPG Default",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "CAMINHO DO VCPKG.CMAKE"
+            }
+        }
+    ]
+}
+```
 
+* `$env{HOME}/Projects/tools/vcpkg/scripts/buildsystems/vcpkg.cmake Exemplo de Caminho` → Exemplo de Caminho
+
+> 💡 CMakePresets esta no .GitIgnore, tem um caminho proprio que cada pessoa deve possuir
+
+# 💻 Ambiente de Desenvolvimento
 
 ### Vs Code
-O VS Code será simplesmente seu ambiente de desenvolvimento.
 
+# 💾 Instalados no Sistema
 
-## Instaladas no Sistema
-g++ --version
-cmake --version
-git --version
-vcpkg --version
+### Comandos para Conferir as Versoes
 
-## Tamanho de Pixel Art Utilizada
+- g++ --version
+- cmake --version
+- git --version
+- vcpkg --version
+
+### Comandos para o vcpkg
+
+* `mkdir -p ~/dev` → Criar Pasta
+* `cd ~/dev` → Entrar na Pasta
+* `git clone https://github.com/microsoft/vcpkg.git` → Clonar o Repositorio
+* `cd ~/dev/vcpkg` → Entrar na Pasta do vcpkg
+
+`sudo pacman -Syu base-devel git curl zip unzip tar cmake ninja` → Se necessario instalar para o proximo passo
+
+* `./bootstrap-vcpkg.sh` → Executar o Instalador
+* `echo 'export PATH="$HOME/dev/vcpkg:$PATH"' >> ~/.bashrc` → Fazer o vcpkg ser universal
+* `source ~/.bashrc` → Atualizar
+
+### Comandos para o SFML
+
+* `cd ~/Projects/RPG` → Abra o Projeto
+* `vcpkg install` → Instale
+
+### Comandos para o CMake
+
+* `cmake --preset default` → Coloca o CMake como padrao
+* `cmake --build build` → Constroi o Jogo
+* `./build/MeuRPG` → Abre o Jogo
+* `cmake --build build && ./build/MeuRPG` → Constroi o Jogo/Atualiza o Jogo e Abre
+
+# 📝 Anotacoes
+
+### Tamanho de Pixel Art Utilizada
 
 16 x 16
 32 x 32 Talvez depois
 
 
-## Divisão
+# 🏗️ Divisão do Projeto
+
+(Ver pelo arquivo .md)
 
 meu-jogo/
 │

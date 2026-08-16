@@ -9,6 +9,9 @@ find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
 
 add_executable(MeuRPG
     src/main.cpp
+    src/player/Player.cpp
+    src/world/Map.cpp
+    src/world/Tile.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

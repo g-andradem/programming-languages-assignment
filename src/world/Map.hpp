@@ -12,8 +12,10 @@ class Map
     private:
         std::vector<std::vector<int>> map;
 
-        sf::Texture carteira;
+        sf::Texture grama;
         sf::Texture wallTexture;
+        sf::Texture carteira;
+        sf::Texture preto;
 
         std::vector<std::vector<Tile>> tiles;
 };

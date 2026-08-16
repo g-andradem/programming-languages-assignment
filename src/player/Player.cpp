@@ -48,7 +48,7 @@ void Player::update(float deltaTime){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
         sprite.move({0.f, speed});
 
-    updateAnimation(deltaTime);
+    //updateAnimation(deltaTime);
 }
 
 void Player::draw(sf::RenderWindow& window){

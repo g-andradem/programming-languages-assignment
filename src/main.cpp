@@ -5,7 +5,9 @@
 int main()
 {
     sf::RenderWindow window(
-        sf::VideoMode({800, 600}),
+        //sf::VideoMode({1024, 768}), y < 12 x < 16
+        // sf::VideoMode({960, 704}), y < 11 x < 15
+        sf::VideoMode({1088, 832}),
         "Meu primeiro programa SFML"
     );
 
@@ -14,13 +16,7 @@ int main()
 
     sf::Clock clock;
 
-    // Camera
-    sf::View camera(
-        sf::FloatRect({0.f, 0.f}, {800.f, 600.f})
-    );
-
-    // Pegar Posicao do Jogador
-    sf::Vector2f playerPosition = player.getPosition();
+    
 
     // Mapa
     Map map;
@@ -36,9 +32,9 @@ int main()
 
         player.update(deltaTime);
 
-        camera.setCenter(player.getPosition());
+        //camera.setCenter(player.getPosition());
 
-        window.setView(camera);
+        //window.setView(camera);
         
         window.clear();
 

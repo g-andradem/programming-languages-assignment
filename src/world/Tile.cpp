@@ -4,7 +4,7 @@ Tile::Tile(const sf::Texture& texture, bool walkable):
     sprite(texture),
     walkable(walkable)
 {
-    sprite.setScale({4.f, 4.f});
+    sprite.setScale({2.f, 2.f});
 }
 
 void Tile::setPosition(float x, float y){

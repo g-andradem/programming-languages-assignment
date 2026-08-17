@@ -13,7 +13,7 @@ Player::Player():
     animationSpeed(0.15f)
 {
     if (!texture.loadFromFile(
-        "assets/textures/characters/sprite_andre0.png"
+        "assets/textures/characters/sprite_pessoa.png"
     )) {
         // tratar erro depois
         std::cout << "Erro ao carregar textura!\n";

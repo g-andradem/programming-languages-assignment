@@ -12,6 +12,8 @@ add_executable(MeuRPG
     src/player/Player.cpp
     src/world/Map.cpp
     src/world/Tile.cpp
+    src/world/Object.cpp
+    src/world/Wall.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

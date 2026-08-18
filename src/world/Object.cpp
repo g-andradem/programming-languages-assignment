@@ -1,14 +1,14 @@
 #include "Object.hpp"
 
 Object::Object(const sf::Texture& texture):
-    sprite(texture)
-{
-    sprite.setScale({3.f, 3.f});
-
+    sprite(texture){
 }
 
-void Object::setOrigin(sf::Vector2f origin)
-{
+void Object::setScale(float width, float height){
+    sprite.setScale({width, height});
+}
+
+void Object::setOrigin(sf::Vector2f origin){
     sprite.setOrigin(origin);
 }
 
@@ -20,7 +20,6 @@ void Object::draw(sf::RenderWindow& window) {
     window.draw(sprite);
 }
 
-sf::FloatRect Object::getLocalBounds()
-{
+sf::FloatRect Object::getLocalBounds(){
     return sprite.getLocalBounds();
 }

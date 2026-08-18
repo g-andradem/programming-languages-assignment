@@ -16,6 +16,9 @@ class Map
 
         sf::Texture carteira;
         sf::Texture piso;
+        sf::Texture professor;
+        sf::Texture wall_vertical;
+        sf::Texture wall_edge;
 
         std::vector<std::vector<Tile>> tiles;
         std::vector<Wall> walls;

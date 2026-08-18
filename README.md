@@ -125,6 +125,9 @@ Mistura conceitual de: pip + requirements.txt do Python.
 
 # ⚙️ Sobre o CMakePresets
 
+cmake -B build \
+  -DCMAKE_TOOLCHAIN_FILE=/home/guilherme/dev/vcpkg/scripts/buildsystems/vcpkg.cmake
+
 ```cmake
 "CMAKE_TOOLCHAIN_FILE": "$env{HOME}/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
 ```

@@ -4,9 +4,9 @@
 Map::Map(){
 
     map = {
-        {4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
-        {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+        {4, 3, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3},
+        {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
@@ -34,6 +34,10 @@ Map::Map(){
     if(!wall_edge.loadFromFile("assets/textures/walls/sprite_wall_edge.png")){
         std::cerr << "Erro ao carregar sprite_wall_edge.png\n";
     }
+    if(!door.loadFromFile("assets/textures/walls/sprite_door.png")){
+        std::cerr << "Erro ao carregar sprite_door.png\n";
+    }
+
 
     for (int y = 0; y < map.size(); y++)
     {
@@ -83,6 +87,7 @@ Map::Map(){
     }
 
     // Wall
+
     for (int y = 0; y < map.size(); y++){
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 3){
@@ -130,6 +135,19 @@ Map::Map(){
                     wall.setRotation(270.f);
                 }
 
+                wall.setPosition(
+                    x * 64.f + 32.f,
+                    y * 64.f + 32.f
+                );
+                walls.push_back(wall);
+            }
+        }
+
+        for (int x = 0; x < map[y].size(); x++){
+            if(map[y][x] == 5){
+                Wall wall(door);
+                wall.setOrigin(wall.getLocalBounds().size / 2.f);
+                wall.setScale(2.f, 2.f);
                 wall.setPosition(
                     x * 64.f + 32.f,
                     y * 64.f + 32.f

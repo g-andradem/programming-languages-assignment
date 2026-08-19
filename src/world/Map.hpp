@@ -19,6 +19,7 @@ class Map
         sf::Texture professor;
         sf::Texture wall_vertical;
         sf::Texture wall_edge;
+        sf::Texture door;
 
         std::vector<std::vector<Tile>> tiles;
         std::vector<Wall> walls;

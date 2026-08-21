@@ -1,5 +1,10 @@
 #include <SFML/Graphics.hpp>
 
+enum class PlayerAnimation {
+    Front,
+    Side
+};
+
 class Player {
     public:
         Player();
@@ -11,18 +16,20 @@ class Player {
 
         void updateAnimation(float deltaTime);
 
+        void updateTexture();
+
+        void setPosition(float WIDHT, float HEIGHT);
+
+        void setAnimation(PlayerAnimation animation);
+
     private:
+        sf::Texture frontTexture;
+        sf::Texture sideTexture;
+
         sf::Texture texture;
         sf::Sprite sprite;
 
-        sf::Texture walkTexture_1;
-        sf::Texture walkTexture_2;
-
-        int hp;
-        int level;
         float speed;
 
-        int currentFrame;
-        float animationTimer;
-        float animationSpeed;
+        PlayerAnimation currentAnimation;
 };

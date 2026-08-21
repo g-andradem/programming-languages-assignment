@@ -5,31 +5,27 @@
 Player::Player(): 
     texture(),
     sprite(texture),
-    hp(100),
-    level(1),
-    speed(1.f),
-    currentFrame(0),
-    animationTimer(0.f),
-    animationSpeed(0.15f)
+    speed(1.f)
 {
-    if (!texture.loadFromFile(
-        "assets/textures/characters/sprite_pessoa.png"
-    )) {
+    if (!texture.loadFromFile("assets/textures/characters/sprite_PLAYER_frente.png")){
         // tratar erro depois
         std::cout << "Erro ao carregar textura!\n";
         return;
     }
-
-    // idleTexture.loadFromFile("assets/textures/characters/andre_idle.png");
-    // walkTexture.loadFromFile("assets/textures/characters/andre_walk.png");
-    // attackTexture.loadFromFile("assets/textures/characters/andre_attack.png");
+    if (!frontTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_frente.png")){
+        // tratar erro depois
+        std::cerr << "Erro ao carregar sprite do player (frente)\n";
+        return;
+    }
+    if (!sideTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado.png")){
+        std::cerr << "Erro ao carregar sprite da professora (lado)\n";
+    }
 
     sprite.setTextureRect(
-        sf::IntRect({0, 0}, {16, 16})
+        sf::IntRect({0, 0}, {32, 32})
     );
 
-    sprite.setScale({4.f, 4.f});
-    sprite.setPosition({375.f, 275.f});
+    sprite.setScale({3.f, 3.f});
 }
 
 void Player::update(float deltaTime){
@@ -47,35 +43,32 @@ void Player::update(float deltaTime){
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
         sprite.move({0.f, speed});
-
-    //updateAnimation(deltaTime);
 }
 
 void Player::draw(sf::RenderWindow& window){
     window.draw(sprite);
 }
 
+void Player::setPosition(float WIDHT, float HEIGHT){
+    sprite.setPosition({WIDHT, HEIGHT});
+}
+
 sf::Vector2f Player::getPosition(){
     return sprite.getPosition();
 }
 
-void Player::updateAnimation(float deltaTime){
-    animationTimer += deltaTime;
+void Player::setAnimation(PlayerAnimation animation)
+{
+    currentAnimation = animation;
 
-    if (animationTimer >= animationSpeed)
+    switch (animation)
     {
-        animationTimer = 0.f;
+        case PlayerAnimation::Front:
+            sprite.setTexture(frontTexture);
+            break;
 
-        currentFrame++;
-
-        if (currentFrame >= 4)
-            currentFrame = 0;
-
-        sprite.setTextureRect(
-            sf::IntRect(
-                {currentFrame * 16, 0},
-                {16, 16}
-            )
-        );
+        case PlayerAnimation::Side:
+            sprite.setTexture(sideTexture);
+            break;
     }
 }

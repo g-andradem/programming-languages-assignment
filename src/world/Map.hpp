@@ -3,6 +3,7 @@
 #include "Tile.hpp"
 #include "Wall.hpp"
 #include "Object.hpp"
+//#include "../student/Student.hpp"
 
 class Map
 {
@@ -24,4 +25,7 @@ class Map
         std::vector<std::vector<Tile>> tiles;
         std::vector<Wall> walls;
         std::vector<Object> objects;
+
+        // Tirar estudante daqui depois
+        //std::vector<Student> students;
 };

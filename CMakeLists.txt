@@ -14,6 +14,9 @@ add_executable(MeuRPG
     src/world/Tile.cpp
     src/world/Object.cpp
     src/world/Wall.cpp
+    src/teacher/Teacher.cpp
+    src/core/GameTime.cpp
+    src/ui/TimerUI.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

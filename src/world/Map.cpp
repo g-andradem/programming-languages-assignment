@@ -4,15 +4,15 @@
 Map::Map(){
 
     map = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {4, 3, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
+        {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-        {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-        {3, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 3},
-        {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-        {3, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 3},
+        {3, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
@@ -38,8 +38,8 @@ Map::Map(){
         std::cerr << "Erro ao carregar sprite_door.png\n";
     }
 
-
-    for (int y = 0; y < map.size(); y++)
+    // Tiles
+    for (int y = 2; y < map.size(); y++)
     {
         std::vector<Tile> row;
         for (int x = 0; x < map[y].size(); x++){
@@ -53,41 +53,27 @@ Map::Map(){
         tiles.push_back(row);
     }
 
+    // Objects
     for (int y = 0; y < map.size(); y++)
     {
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 2){
                 Object object(carteira);
             
-            object.setOrigin(object.getLocalBounds().size / 2.f);
+                object.setOrigin(object.getLocalBounds().size / 2.f);
 
-            object.setScale(3.f, 3.f);
+                object.setScale(3.f, 3.f);
 
-            object.setPosition(
-                x * 64.f + 32.f,
-                y * 64.f + 32.f
-            );
-            objects.push_back(object);
-            }
-
-            if(map[y][x] == 1){
-                Object object(professor);
-            
-            object.setOrigin(object.getLocalBounds().size / 2.f);
-
-            object.setScale(4.f, 4.f);
-
-            object.setPosition(
-                x * 64.f + 32.f,
-                y * 64.f + 32.f
-            );
-            objects.push_back(object);
+                object.setPosition(
+                    x * 64.f + 32.f,
+                    y * 64.f + 32.f
+                );
+                objects.push_back(object);
             }
         }
     }
 
     // Wall
-
     for (int y = 0; y < map.size(); y++){
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 3){
@@ -98,7 +84,7 @@ Map::Map(){
                 if (x == 0) {
                     wall.setRotation(0.f);
                 }
-                else if (y == 0) {
+                else if (y == 2) {
                     wall.setRotation(90.f);
                 }
                 else if (x == map[y].size() - 1) {
@@ -125,7 +111,7 @@ Map::Map(){
                 if (x == 0 && y == 0) {
                     wall.setRotation(0.f);
                 }
-                else if (x == map[y].size() - 1 && y == 0) {
+                else if (x == map[y].size() - 1 && y == 2) {
                     wall.setRotation(90.f);
                 }
                 else if (x == map[y].size() - 1 && y == map.size() - 1) {

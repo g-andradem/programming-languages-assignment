@@ -2,13 +2,17 @@
 #include "player/Player.hpp"
 #include "world/Map.hpp"
 #include "teacher/Teacher.hpp"
-#include "core/GameTime.hpp"
+#include "core/Time.hpp"
 #include "ui/TimerUI.hpp"
+#include "ui/ScoreUI.hpp"
+#include "core/Score.hpp"
 
 #include <iostream>
 
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
+
+// Score UI concertar
 
 int main()
 {
@@ -18,10 +22,6 @@ int main()
         sf::VideoMode({GAME_WIDTH, GAME_HEIGHT}),
         "Meu primeiro programa SFML"
     );
-
-    // Player
-    Player player;
-    player.setPosition(400.f, 400.f);
 
     sf::Clock clock;
 
@@ -41,8 +41,19 @@ int main()
     );
 
     // Time
-    GameTime gameTime;
+    Time time;
     TimerUI timerUI;
+
+    // Score
+    Score score;
+    ScoreUI scoreUI;
+
+    // Player
+    Player player(score);
+    player.setPosition(
+        5 * 64.f + 32.f,
+        7 * 64.f + 32.f // ALTURA
+    );
 
     // Looping Main
     while (window.isOpen()){
@@ -51,6 +62,7 @@ int main()
                 window.close();
             }
 
+            // Teacher Animation
             if (event->is<sf::Event::KeyPressed>())
             {
                 const auto& keyEvent = event->getIf<sf::Event::KeyPressed>();
@@ -68,20 +80,6 @@ int main()
                     teacher.setAnimation(TeacherAnimation::Side);
                 }
             }
-
-            if (event->is<sf::Event::KeyPressed>())
-            {
-                const auto& keyEvent = event->getIf<sf::Event::KeyPressed>();
-
-                if (keyEvent->code == sf::Keyboard::Key::Num4)
-                {
-                    player.setAnimation(PlayerAnimation::Front);
-                }
-                else if (keyEvent->code == sf::Keyboard::Key::Num5)
-                {
-                    player.setAnimation(PlayerAnimation::Side);
-                }
-            }
         }
 
 
@@ -97,9 +95,9 @@ int main()
         // Update
         player.update(deltaTime);
         teacher.update(deltaTime);
-        gameTime.update(deltaTime);
-
-        timerUI.update(gameTime);
+        time.update(deltaTime);
+        timerUI.update(time);
+        scoreUI.update(score);
 
         window.clear();
 
@@ -108,6 +106,7 @@ int main()
         teacher.draw(window);
         player.draw(window);
         timerUI.draw(window);
+        scoreUI.draw(window);
 
         window.display();
     }

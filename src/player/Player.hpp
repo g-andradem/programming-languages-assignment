@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 
+#include "../core/Score.hpp"
+#include "../core/Timer.hpp"
+
 enum class PlayerAnimation {
     Front,
     Side
@@ -7,29 +10,33 @@ enum class PlayerAnimation {
 
 class Player {
     public:
-        Player();
+        Player(Score& score);
 
         void update(float deltaTime);
         void draw(sf::RenderWindow& window);
 
         sf::Vector2f getPosition();
 
-        void updateAnimation(float deltaTime);
-
-        void updateTexture();
-
         void setPosition(float WIDHT, float HEIGHT);
 
-        void setAnimation(PlayerAnimation animation);
+        void updateAnimation(float deltaTime, PlayerAnimation animation);
 
     private:
+        Score& score;
+
+        Timer scoreTimer;
+        /*
+        Timer animationTimer(0.15f);
+        Timer attackCooldown(2.f);
+        Timer scoreTimer(1.f);
+        Timer interactionTimer(0.5f);
+        */
+
         sf::Texture frontTexture;
         sf::Texture sideTexture;
 
         sf::Texture texture;
         sf::Sprite sprite;
-
-        float speed;
 
         PlayerAnimation currentAnimation;
 };

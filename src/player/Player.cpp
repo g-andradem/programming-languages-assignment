@@ -2,10 +2,11 @@
 
 #include <iostream>
 
-Player::Player(): 
+Player::Player(Score& score): 
     texture(),
     sprite(texture),
-    speed(1.f)
+    score(score),
+    scoreTimer(1.f)
 {
     if (!texture.loadFromFile("assets/textures/characters/sprite_PLAYER_frente.png")){
         // tratar erro depois
@@ -32,17 +33,50 @@ void Player::update(float deltaTime){
     // float speed = 1.f; // pixels por segundo
     // float deltaTime = clock.restart().asSeconds();
 
+    bool isMoving = false;
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-        sprite.move({-speed, 0.f});
+    {
+        currentAnimation = PlayerAnimation::Side;
+        isMoving = true;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-        sprite.move({speed, 0.f});
+    {
+        currentAnimation = PlayerAnimation::Side;
+        isMoving = true;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-        sprite.move({0.f, -speed});
+    {
+        currentAnimation = PlayerAnimation::Front;
+        isMoving = true;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        sprite.move({0.f, speed});
+    {
+        currentAnimation = PlayerAnimation::Front;
+        isMoving = true;
+    }
+
+    if (isMoving)
+    {
+        scoreTimer.update(deltaTime);
+
+        if (scoreTimer.isFinished())
+        {
+            score.addPoints(100);
+            scoreTimer.reset();
+
+            printf("Pontos: %d\n", score.getPoints());
+        }
+    }
+    else
+    {
+        scoreTimer.reset();
+    }
+
+    updateAnimation(deltaTime, currentAnimation);
 }
 
 void Player::draw(sf::RenderWindow& window){
@@ -57,9 +91,7 @@ sf::Vector2f Player::getPosition(){
     return sprite.getPosition();
 }
 
-void Player::setAnimation(PlayerAnimation animation)
-{
-    currentAnimation = animation;
+void Player::updateAnimation(float deltaTime, PlayerAnimation animation){
 
     switch (animation)
     {

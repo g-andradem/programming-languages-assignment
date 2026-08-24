@@ -3,13 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include "../core/Time.hpp"
 
-class Timer;
+class Score;
 
-class TimerUI {
+class ScoreUI {
     public:
-        TimerUI();
+        ScoreUI();
 
-        void update(const Time& Time);
+        void update(const Score& Score);
         void draw(sf::RenderWindow& window);
     private:
         

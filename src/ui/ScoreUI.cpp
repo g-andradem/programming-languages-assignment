@@ -1,9 +1,9 @@
-#include "TimerUI.hpp"
+#include "ScoreUI.hpp"
 #include <iomanip>
 #include <sstream>
 #include <iostream>
 
-TimerUI::TimerUI()
+ScoreUI::ScoreUI()
     : text(font)
 {
     if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
@@ -15,19 +15,17 @@ TimerUI::TimerUI()
     text.setPosition({20.f, 20.f});
 }
 
-void TimerUI::update(const Time& Time)
+void ScoreUI::update(const Score& Score)
 {
     std::ostringstream oss;
 
     oss << std::setfill('0')
-        << std::setw(2) << Time.getMinutes()
-        << ":"
-        << std::setw(2) << Time.getSeconds();
+        << std::setw(2) << Score.getPoints();
 
     text.setString(oss.str());
 }
 
-void TimerUI::draw(sf::RenderWindow& window)
+void ScoreUI::draw(sf::RenderWindow& window)
 {
     window.draw(text);
 }

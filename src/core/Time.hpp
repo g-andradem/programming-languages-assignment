@@ -1,9 +1,9 @@
 #pragma once
 
-class GameTime
+class Time
 {
 public:
-    GameTime();
+    Time();
 
     void update(float deltaTime);
 

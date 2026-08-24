@@ -1,13 +1,13 @@
-#include "GameTime.hpp"
+#include "Time.hpp"
 
-GameTime::GameTime()
+Time::Time()
     : elapsedTime(0.f),
       minutes(3),
       seconds(0)
 {
 }
 
-void GameTime::update(float deltaTime)
+void Time::update(float deltaTime)
 {
     elapsedTime += deltaTime;
 
@@ -24,10 +24,10 @@ void GameTime::update(float deltaTime)
     }
 }
 
-int GameTime::getMinutes() const{
+int Time::getMinutes() const{
     return minutes;
 }
 
-int GameTime::getSeconds() const{
+int Time::getSeconds() const{
     return seconds;
 }

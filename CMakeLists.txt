@@ -20,6 +20,7 @@ add_executable(MeuRPG
     src/core/Timer.cpp
     src/ui/TimerUI.cpp
     src/ui/ScoreUI.cpp
+    src/screens/MainMenu.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

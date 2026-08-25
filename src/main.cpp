@@ -6,13 +6,20 @@
 #include "ui/TimerUI.hpp"
 #include "ui/ScoreUI.hpp"
 #include "core/Score.hpp"
+#include "screens/MainMenu.hpp"
 
 #include <iostream>
 
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
 
-// Score UI concertar
+enum class GameState {
+    MainMenu,
+    Playing,
+    Settings,
+    Paused,
+    GameOver
+};
 
 int main()
 {
@@ -24,6 +31,9 @@ int main()
     );
 
     sf::Clock clock;
+
+    // Menu
+    MainMenu mainMenu;
 
     // Mapa
     Map map;
@@ -62,6 +72,9 @@ int main()
         8 * 64.f + 32.f // ALTURA
     );
 
+    // Estado do Jogo
+    GameState state = GameState::MainMenu;
+
     // Looping Main
     while (window.isOpen()){
         while (const std::optional event = window.pollEvent()){
@@ -69,26 +82,11 @@ int main()
                 window.close();
             }
 
-            // Teacher Animation
-            if (event->is<sf::Event::KeyPressed>())
-            {
-                const auto& keyEvent = event->getIf<sf::Event::KeyPressed>();
-
-                if (keyEvent->code == sf::Keyboard::Key::Num1)
-                {
-                    teacher.setAnimation(TeacherAnimation::Front);
-                }
-                else if (keyEvent->code == sf::Keyboard::Key::Num2)
-                {
-                    teacher.setAnimation(TeacherAnimation::Diagonal);
-                }
-                else if (keyEvent->code == sf::Keyboard::Key::Num3)
-                {
-                    teacher.setAnimation(TeacherAnimation::Side);
-                }
+            // menu recebe eventos
+            if (state == GameState::MainMenu) {
+                mainMenu.handleEvent(*event);
             }
         }
-
 
         sf::View view(sf::FloatRect(
             {0.f, 0.f},
@@ -98,25 +96,45 @@ int main()
         window.setView(view);
 
         float deltaTime = clock.restart().asSeconds();
-        
-        // Update
-        player.update(deltaTime);
-        teacher.update(deltaTime);
-        time.update(deltaTime);
-        timerUI.update(time);
-        scoreUI.update(score);
+
+        if (state == GameState::MainMenu) {
+            // menu
+            mainMenu.update(deltaTime);
+        }
+        else if (state == GameState::Playing) {
+
+            // Atualiza o jogo
+            player.update(deltaTime);
+            teacher.update(deltaTime);
+            time.update(deltaTime);
+            timerUI.update(time);
+            scoreUI.update(score);
+
+        }
+        /*else if (state == GameState::Settings) {
+            // configurações
+        }*/
 
         window.clear();
 
-        // Draw
-        map.draw(window);
-        teacher.draw(window);
-        player.draw(window);
-        timerUI.draw(window);
-        scoreUI.draw(window);
+        if (state == GameState::MainMenu) {
+
+            // Desenha o menu
+            mainMenu.draw(window);
+
+        }
+        else if (state == GameState::Playing) {
+
+            // Desenha o jogo
+            map.draw(window);
+            teacher.draw(window);
+            player.draw(window);
+            timerUI.draw(window);
+            scoreUI.draw(window);
+
+        }
 
         window.display();
     }
-
     return 0;
 }

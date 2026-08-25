@@ -73,3 +73,23 @@ void Teacher::setAnimation(TeacherAnimation animation)
             break;
     }
 }
+
+/*
+// Teacher Animation
+if (event->is<sf::Event::KeyPressed>())
+{
+    const auto& keyEvent = event->getIf<sf::Event::KeyPressed>();
+
+    if (keyEvent->code == sf::Keyboard::Key::Num1)
+    {
+        teacher.setAnimation(TeacherAnimation::Front);
+    }
+    else if (keyEvent->code == sf::Keyboard::Key::Num2)
+    {
+        teacher.setAnimation(TeacherAnimation::Diagonal);
+    }
+    else if (keyEvent->code == sf::Keyboard::Key::Num3)
+    {
+        teacher.setAnimation(TeacherAnimation::Side);
+    }
+}*/

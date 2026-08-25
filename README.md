@@ -241,25 +241,11 @@ meu-jogo/
 │   │   ├── GameTime.hpp
 │   │   └── GameTime.cpp
 │   │
-│   ├── player/ (player/ → personagem, Tudo relacionado ao personagem principal)
-│   │   ├── Player.hpp
-│   │   ├── Player.cpp
-│   │   ├── Character.hpp
-│   │   └── Character.cpp
-│   │
 │   ├── enemies/
 │   │   ├── Enemy.hpp
 │   │   ├── Enemy.cpp
 │   │   ├── EnemyManager.hpp
 │   │   └── EnemyManager.cpp
-│   │
-│   ├── world/
-│   │   ├── Map.hpp
-│   │   ├── Map.cpp
-│   │   ├── Tile.hpp
-│   │   ├── Tile.cpp
-│   │   ├── World.hpp
-│   │   └── World.cpp
 │   │
 │   ├── screens/
 │   │   ├── MainMenu.hpp

@@ -5,7 +5,8 @@
 
 enum class PlayerAnimation {
     Front,
-    Side
+    Left,
+    Right
 };
 
 class Player {
@@ -21,6 +22,9 @@ class Player {
 
         void updateAnimation(float deltaTime, PlayerAnimation animation);
 
+        void setOrigin(sf::Vector2f origin);
+        sf::FloatRect getLocalBounds();
+
     private:
         Score& score;
 
@@ -33,7 +37,8 @@ class Player {
         */
 
         sf::Texture frontTexture;
-        sf::Texture sideTexture;
+        sf::Texture rightTexture;
+        sf::Texture leftTexture;
 
         sf::Texture texture;
         sf::Sprite sprite;

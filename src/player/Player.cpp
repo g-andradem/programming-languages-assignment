@@ -18,7 +18,10 @@ Player::Player(Score& score):
         std::cerr << "Erro ao carregar sprite do player (frente)\n";
         return;
     }
-    if (!sideTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado.png")){
+    if (!rightTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado.png")){
+        std::cerr << "Erro ao carregar sprite da professora (lado)\n";
+    }
+    if (!leftTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado_2.png")){
         std::cerr << "Erro ao carregar sprite da professora (lado)\n";
     }
 
@@ -37,26 +40,26 @@ void Player::update(float deltaTime){
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
-        currentAnimation = PlayerAnimation::Side;
+        currentAnimation = PlayerAnimation::Left;
         isMoving = true;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
-        currentAnimation = PlayerAnimation::Side;
+        currentAnimation = PlayerAnimation::Right;
         isMoving = true;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         currentAnimation = PlayerAnimation::Front;
-        isMoving = true;
+        //isMoving = true;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         currentAnimation = PlayerAnimation::Front;
-        isMoving = true;
+        //isMoving = true;
     }
 
     if (isMoving)
@@ -67,12 +70,11 @@ void Player::update(float deltaTime){
         {
             score.addPoints(100);
             scoreTimer.reset();
-
-            printf("Pontos: %d\n", score.getPoints());
         }
     }
     else
     {
+        currentAnimation = PlayerAnimation::Front;   
         scoreTimer.reset();
     }
 
@@ -99,8 +101,19 @@ void Player::updateAnimation(float deltaTime, PlayerAnimation animation){
             sprite.setTexture(frontTexture);
             break;
 
-        case PlayerAnimation::Side:
-            sprite.setTexture(sideTexture);
+        case PlayerAnimation::Left:
+            sprite.setTexture(leftTexture);
+            break;
+        case PlayerAnimation::Right:
+            sprite.setTexture(rightTexture);
             break;
     }
+}
+
+void Player::setOrigin(sf::Vector2f origin){
+    sprite.setOrigin(origin);
+}
+
+sf::FloatRect Player::getLocalBounds(){
+    return sprite.getLocalBounds();
 }

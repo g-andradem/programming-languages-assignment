@@ -47,12 +47,19 @@ int main()
     // Score
     Score score;
     ScoreUI scoreUI;
+    scoreUI.setPosition(
+        2 * 40.f, 
+        2 * 40.f
+    );
 
     // Player
     Player player(score);
+    player.setOrigin(
+        player.getLocalBounds().size / 2.f
+    );
     player.setPosition(
-        5 * 64.f + 32.f,
-        7 * 64.f + 32.f // ALTURA
+        6 * 64.f + 32.f,
+        8 * 64.f + 32.f // ALTURA
     );
 
     // Looping Main

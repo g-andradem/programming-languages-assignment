@@ -15,12 +15,13 @@ ScoreUI::ScoreUI()
     text.setPosition({20.f, 20.f});
 }
 
-void ScoreUI::update(const Score& Score)
+void ScoreUI::update(const Score& score)
 {
     std::ostringstream oss;
 
     oss << std::setfill('0')
-        << std::setw(2) << Score.getPoints();
+        << std::setw(5) 
+        << score.getPoints();
 
     text.setString(oss.str());
 }
@@ -28,4 +29,9 @@ void ScoreUI::update(const Score& Score)
 void ScoreUI::draw(sf::RenderWindow& window)
 {
     window.draw(text);
+}
+
+void ScoreUI::setPosition(float x, float y)
+{
+    text.setPosition({x, y});
 }

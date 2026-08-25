@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Map.hpp"
 
+#include <random>
+
 Map::Map(){
 
     map = {
@@ -19,9 +21,24 @@ Map::Map(){
         {4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
     };
 
-    if(!carteira.loadFromFile("assets/textures/characters/sprite_pessoa.png")){
-        std::cerr << "Erro ao carregar sprite_pessoa.png\n";
+    // Sprite Students
+    if(!student_1.loadFromFile("assets/textures/characters/sprite_student_1.png")){
+        std::cerr << "Erro ao carregar sprite_sprite_student_1.png\n";
     }
+    if(!student_2.loadFromFile("assets/textures/characters/sprite_student_2.png")){
+        std::cerr << "Erro ao carregar sprite_sprite_student_2.png\n";
+    }
+    if(!student_3.loadFromFile("assets/textures/characters/sprite_student_3.png")){
+        std::cerr << "Erro ao carregar sprite_sprite_student_3.png\n";
+    }
+    if(!student_4.loadFromFile("assets/textures/characters/sprite_student_4.png")){
+        std::cerr << "Erro ao carregar sprite_sprite_student_4.png\n";
+    }
+    if(!student_5.loadFromFile("assets/textures/characters/sprite_student_5.png")){
+        std::cerr << "Erro ao carregar sprite_sprite_student_5.png\n";
+    }
+
+    // Sprite Floor
     if(!piso.loadFromFile("assets/textures/tiles/sprite_chao.png")){
         std::cerr << "Erro ao carregar sprite_piso.png\n";
     }
@@ -54,11 +71,26 @@ Map::Map(){
     }
 
     // Objects
+    // After Transform in Students
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::vector<sf::Texture*> textures = {
+        &student_1,
+        &student_2,
+        &student_3,
+        &student_4,
+        &student_5
+    };
+    std::uniform_int_distribution<int> dist(0, 4);
+
     for (int y = 0; y < map.size(); y++)
     {
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 2){
-                Object object(carteira);
+                sf::Texture* randomTexture = textures[dist(gen)];
+
+                Object object(*randomTexture);
             
                 object.setOrigin(object.getLocalBounds().size / 2.f);
 

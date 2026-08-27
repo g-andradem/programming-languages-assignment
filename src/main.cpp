@@ -84,7 +84,19 @@ int main()
 
             // menu recebe eventos
             if (state == GameState::MainMenu) {
-                mainMenu.handleEvent(*event);
+                MenuAction action = mainMenu.handleEvent(*event);
+
+                if (action == MenuAction::Play) {
+                    state = GameState::Playing;
+                }
+
+                else if (action == MenuAction::Settings) {
+                    state = GameState::Settings;
+                }
+
+                else if (action == MenuAction::Exit) {
+                    window.close();
+                }
             }
         }
 
@@ -118,13 +130,11 @@ int main()
         window.clear();
 
         if (state == GameState::MainMenu) {
-
             // Desenha o menu
             mainMenu.draw(window);
 
         }
         else if (state == GameState::Playing) {
-
             // Desenha o jogo
             map.draw(window);
             teacher.draw(window);

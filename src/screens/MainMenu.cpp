@@ -7,49 +7,82 @@ MainMenu::MainMenu()
       settingsButton(font),
       exitButton(font)
 {
+    
     if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
         std::cerr << "Erro ao carregar fonte!\n";
     }
 
-    title.setString("MEU RPG");
-    title.setCharacterSize(64);
-    title.setPosition({300.f, 150.f});
+    title.setString("COLANDO NA PROVA DE\nLINGUAGENS DE PROGRAMACAO");
+    title.setCharacterSize(48);
+    title.setPosition({
+        416.f - title.getLocalBounds().size.x / 2.f,
+        150.f
+    });
 
     playButton.setString("Jogar");
     playButton.setCharacterSize(32);
-    playButton.setPosition({350.f, 350.f});
+    playButton.setPosition({
+        416.f - playButton.getLocalBounds().size.x / 2.f,
+        350.f
+    });
 
     settingsButton.setString("Configuracoes");
     settingsButton.setCharacterSize(32);
-    settingsButton.setPosition({300.f, 420.f});
+    settingsButton.setPosition({
+        416.f - settingsButton.getLocalBounds().size.x / 2.f,
+        420.f
+    });
 
     exitButton.setString("Sair");
     exitButton.setCharacterSize(32);
-    exitButton.setPosition({350.f, 490.f});
+    exitButton.setPosition({
+        416.f - exitButton.getLocalBounds().size.x / 2.f,
+        490.f
+    });
+
+    updateSelection();
 }
 
-void MainMenu::handleEvent(const sf::Event& event)
+// Seleciona Opcao no Menu
+MenuAction MainMenu::handleEvent(const sf::Event& event)
 {
-    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
+    if (const auto* keyPressed =
+            event.getIf<sf::Event::KeyPressed>()) {
 
-        if (keyPressed->scancode == sf::Keyboard::Scancode::Up) {
+        if (keyPressed->scancode == sf::Keyboard::Scan::W) {
+
             selectedButton--;
 
             if (selectedButton < 0)
                 selectedButton = 2;
+
+            updateSelection();
         }
 
-        if (keyPressed->scancode == sf::Keyboard::Scancode::Down) {
+        else if (keyPressed->scancode == sf::Keyboard::Scan::S) {
+
             selectedButton++;
 
             if (selectedButton > 2)
                 selectedButton = 0;
+
+            updateSelection();
         }
 
-        if (keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
-            // Ação do botão selecionado
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
+
+            if (selectedButton == 0)
+                return MenuAction::Play;
+
+            if (selectedButton == 1)
+                return MenuAction::Settings;
+
+            if (selectedButton == 2)
+                return MenuAction::Exit;
         }
     }
+
+    return MenuAction::None;
 }
 
 void MainMenu::update(float deltaTime)
@@ -63,6 +96,23 @@ void MainMenu::draw(sf::RenderWindow& window)
     window.draw(playButton);
     window.draw(settingsButton);
     window.draw(exitButton);
+}
+
+void MainMenu::updateSelection()
+{
+    playButton.setString("Jogar");
+    settingsButton.setString("Configuracoes");
+    exitButton.setString("Sair");
+
+    if (selectedButton == 0) {
+        playButton.setString("> Jogar");
+    }
+    else if (selectedButton == 1) {
+        settingsButton.setString("> Configuracoes");
+    }
+    else if (selectedButton == 2) {
+        exitButton.setString("> Sair");
+    }
 }
 
 int MainMenu::getSelectedButton() const

@@ -2,6 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 
+enum class MenuAction {
+    None,
+    Play,
+    Settings,
+    Exit
+};
+
 class MainMenu {
 private:
     sf::Font font;
@@ -16,9 +23,11 @@ private:
 public:
     MainMenu();
 
-    void handleEvent(const sf::Event& event);
+    MenuAction handleEvent(const sf::Event& event);
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
+
+    void updateSelection();
 
     int getSelectedButton() const;
 };

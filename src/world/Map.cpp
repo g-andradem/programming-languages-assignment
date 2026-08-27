@@ -6,8 +6,8 @@
 Map::Map(){
 
     map = {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {6, 7, 7, 6, 6, 7, 7, 7, 6, 6, 7, 7, 6},
+        {6, 7, 7, 6, 6, 7, 7, 7, 6, 6, 7, 7, 6},
         {4, 3, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3},
@@ -20,6 +20,14 @@ Map::Map(){
         {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
         {4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
     };
+
+    // Sprite Hud
+    if(!hud_horizontal.loadFromFile("assets/textures/hud/horizontal_superior.png")){
+        std::cerr << "Erro ao carregar sprite horizontal_superior.png\n";
+    }
+    if(!hud_edge.loadFromFile("assets/textures/hud/esquerdo_superior.png")){
+        std::cerr << "Erro ao carregar sprite esquerdo superior.png\n";
+    }
 
     // Sprite Students
     if(!student_1.loadFromFile("assets/textures/characters/sprite_student_1.png")){
@@ -42,9 +50,13 @@ Map::Map(){
     if(!piso.loadFromFile("assets/textures/tiles/sprite_chao.png")){
         std::cerr << "Erro ao carregar sprite_piso.png\n";
     }
+
+    // Sprite Teacher
     if(!professor.loadFromFile("assets/textures/characters/sprite_professora.png")){
         std::cerr << "Erro ao carregar sprite_professor.png\n";
     }
+
+    // Sprite Walls
     if(!wall_vertical.loadFromFile("assets/textures/walls/sprite_wall_vertical.png")){
         std::cerr << "Erro ao carregar sprite_wall_vertical.png\n";
     }
@@ -68,6 +80,58 @@ Map::Map(){
             );
         }
         tiles.push_back(row);
+    }
+
+    // Hud
+    // Trade After
+    for (int y = 0; y < map.size(); y++){
+        for (int x = 0; x < map[y].size(); x++){
+            if(map[y][x] == 7){
+                Wall hud(hud_horizontal);
+                hud.setOrigin(hud.getLocalBounds().size / 2.f);
+                hud.setScale(2.f, 2.f);
+
+                if (x == 0) {
+                    hud.setRotation(0.f);
+                }
+                else if (y == 1) {
+                    hud.setRotation(180.f);
+                }
+
+                hud.setPosition(
+                    x * 64.f + 32.f,
+                    y * 64.f + 32.f
+                );
+                walls.push_back(hud);
+            }
+        }
+
+        for (int x = 0; x < map[y].size(); x++){
+            if(map[y][x] == 6){
+                Wall hud(hud_edge);
+                hud.setOrigin(hud.getLocalBounds().size / 2.f);
+                hud.setScale(2.f, 2.f);
+
+                if ((x == 0 || x == 4 || x == 9) && y == 0) {
+                    hud.setRotation(0.f);
+                }
+                else if ((x == map[y].size() - 1 || x == 3 || x == 8) && y == 0) {
+                    hud.setRotation(90.f);
+                }
+                else if ((x == map[y].size() - 1 || x == 3 || x == 8) && y == 1) {
+                    hud.setRotation(180.f);
+                }
+                else if ((x == 0 || x == 4 || x == 9) && y == 1) {
+                    hud.setRotation(270.f);
+                }
+
+                hud.setPosition(
+                    x * 64.f + 32.f,
+                    y * 64.f + 32.f
+                );
+                walls.push_back(hud);
+            }
+        }
     }
 
     // Objects

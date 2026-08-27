@@ -28,6 +28,9 @@ class Map
         sf::Texture student_4;
         sf::Texture student_5;
 
+        sf::Texture hud_edge;;
+        sf::Texture hud_horizontal;
+
         std::vector<std::vector<Tile>> tiles;
         std::vector<Wall> walls;
         std::vector<Object> objects;

@@ -12,7 +12,10 @@ TimerUI::TimerUI()
 
     text.setCharacterSize(32);
     text.setFillColor(sf::Color::White);
-    text.setPosition({20.f, 20.f});
+    text.setPosition(
+        {8 * 40.f, 
+        1.5 * 40.f}
+    );
 }
 
 void TimerUI::update(const Time& Time)

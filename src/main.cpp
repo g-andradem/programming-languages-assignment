@@ -59,7 +59,7 @@ int main()
     ScoreUI scoreUI;
     scoreUI.setPosition(
         2 * 40.f, 
-        2 * 40.f
+        1.5 * 40.f
     );
 
     // Player

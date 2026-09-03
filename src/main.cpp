@@ -8,6 +8,7 @@
 #include "core/Score.hpp"
 #include "screens/MainMenu.hpp"
 #include "screens/ScoreMenu.hpp"
+//#include "score/ScoreFile.hpp"
 
 #include <iostream>
 
@@ -54,6 +55,7 @@ int main()
 
     // Score Menu
     ScoreMenu scoreMenu;
+    
 
     // Time
     Time time;
@@ -80,6 +82,9 @@ int main()
     // Estado do Jogo
     GameState state = GameState::MainMenu;
 
+    // Estado do Jogo Anterior
+    GameState previousState = GameState::MainMenu;
+
     // Looping Main
     while (window.isOpen()){
         while (const std::optional event = window.pollEvent()){
@@ -87,19 +92,34 @@ int main()
                 window.close();
             }
 
+            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {
+
+                    GameState temp = state;
+                    state = previousState;
+                    previousState = temp;
+
+                }
+            }
+
             // menu recebe eventos
             if (state == GameState::MainMenu) {
                 MenuAction action = mainMenu.handleEvent(*event);
 
                 if (action == MenuAction::Play) {
+                    // trocar o previous State depois
+                    previousState = state;
                     state = GameState::Playing;
                 }
 
                 else if (action == MenuAction::Score) {
+                    previousState = state;
                     state = GameState::Score;
                 }
 
                 else if (action == MenuAction::Settings) {
+                    previousState = state;
                     state = GameState::Settings;
                 }
 

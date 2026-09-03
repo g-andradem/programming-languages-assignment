@@ -1,4 +1,5 @@
 #include "ScoreMenu.hpp"
+// #include "../score/ScoreFile.cpp"
 #include <algorithm>
 
 ScoreMenu::ScoreMenu()
@@ -6,6 +7,11 @@ ScoreMenu::ScoreMenu()
     if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
         // Tratar erro caso a fonte não seja encontrada
     }
+    scores.push_back({"Guilherme", 1500});
+    scores.push_back({"Thy", 1200});
+    scores.push_back({"Joao", 900});
+
+    // std::vector<ScoreEntry> scores = ScoreFile::load();
 }
 
 void ScoreMenu::addScore(const std::string& playerName, int score)
@@ -26,11 +32,12 @@ void ScoreMenu::sortScores()
 void ScoreMenu::draw(sf::RenderWindow& window)
 {
     sf::Text title(font, "PLACARES", 50);
-    title.setPosition({500.f, 80.f});
+    title.setOrigin(title.getLocalBounds().getCenter());
+    title.setPosition({416.f, 200.f});
 
     window.draw(title);
 
-    float y = 180.f;
+    float y = 416.f;
 
     for (std::size_t i = 0; i < scores.size(); ++i)
     {
@@ -40,7 +47,8 @@ void ScoreMenu::draw(sf::RenderWindow& window)
             std::to_string(scores[i].score);
 
         sf::Text scoreText(font, text, 30);
-        scoreText.setPosition({450.f, y});
+        scoreText.setOrigin(title.getLocalBounds().getCenter());
+        scoreText.setPosition({380.f, y});
 
         window.draw(scoreText);
 

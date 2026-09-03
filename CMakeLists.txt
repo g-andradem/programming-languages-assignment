@@ -22,6 +22,7 @@ add_executable(MeuRPG
     src/ui/ScoreUI.cpp
     src/screens/MainMenu.cpp
     src/screens/ScoreMenu.cpp
+    src/score/ScoreFile.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

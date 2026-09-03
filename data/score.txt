@@ -1,0 +1,4 @@
+Guilherme;1500
+Thy;1200
+Joao;900
+Maria;750

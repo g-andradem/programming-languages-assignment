@@ -197,7 +197,6 @@ aponta para o arquivo do vcpkg que permite ao CMake conversar com o vcpkg.
 ### Tamanho de Pixel Art Utilizada
 
 16 x 16
-32 x 32 Talvez depois
 
 
 # 🏗️ Divisão do Projeto
@@ -217,8 +216,6 @@ meu-jogo/
 │   │   ├── tiles/
 │   │   ├── maps/
 │   │   └── ui/
-│   │
-│   ├── fonts/
 │   │
 │   ├── sounds/
 │   │   ├── music/

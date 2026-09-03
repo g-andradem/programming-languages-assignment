@@ -4,11 +4,11 @@
 #include <vector>
 #include <string>
 
-struct ScoreEntry
+typedef struct tScoreEntry
 {
     std::string playerName;
     int score;
-};
+}ScoreEntry;
 
 class ScoreMenu
 {

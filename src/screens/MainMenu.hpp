@@ -5,6 +5,7 @@
 enum class MenuAction {
     None,
     Play,
+    Score,
     Settings,
     Exit
 };
@@ -15,6 +16,7 @@ private:
 
     sf::Text title;
     sf::Text playButton;
+    sf::Text scoreButton;
     sf::Text settingsButton;
     sf::Text exitButton;
 

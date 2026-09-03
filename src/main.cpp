@@ -7,6 +7,7 @@
 #include "ui/ScoreUI.hpp"
 #include "core/Score.hpp"
 #include "screens/MainMenu.hpp"
+#include "screens/ScoreMenu.hpp"
 
 #include <iostream>
 
@@ -16,6 +17,7 @@ const unsigned int GAME_HEIGHT = 832;
 enum class GameState {
     MainMenu,
     Playing,
+    Score,
     Settings,
     Paused,
     GameOver
@@ -49,6 +51,9 @@ int main()
         10 * 64.f + 32.f,
         3 * 64.f + 32.f // ALTURA
     );
+
+    // Score Menu
+    ScoreMenu scoreMenu;
 
     // Time
     Time time;
@@ -90,6 +95,10 @@ int main()
                     state = GameState::Playing;
                 }
 
+                else if (action == MenuAction::Score) {
+                    state = GameState::Score;
+                }
+
                 else if (action == MenuAction::Settings) {
                     state = GameState::Settings;
                 }
@@ -109,12 +118,13 @@ int main()
 
         float deltaTime = clock.restart().asSeconds();
 
-        if (state == GameState::MainMenu) {
+        if (state == GameState::MainMenu)
+        {
             // menu
             mainMenu.update(deltaTime);
         }
-        else if (state == GameState::Playing) {
-
+        else if (state == GameState::Playing)
+        {
             // Atualiza o jogo
             player.update(deltaTime);
             teacher.update(deltaTime);
@@ -123,18 +133,25 @@ int main()
             scoreUI.update(score);
 
         }
+        else if (state == GameState::Score)
+        {
+            // Atualiza o jogo
+
+        }
         /*else if (state == GameState::Settings) {
             // configurações
         }*/
 
         window.clear();
 
-        if (state == GameState::MainMenu) {
+        if (state == GameState::MainMenu)
+        {
             // Desenha o menu
             mainMenu.draw(window);
 
         }
-        else if (state == GameState::Playing) {
+        else if (state == GameState::Playing)
+        {
             // Desenha o jogo
             map.draw(window);
             teacher.draw(window);
@@ -142,6 +159,11 @@ int main()
             timerUI.draw(window);
             scoreUI.draw(window);
 
+        }
+        else if (state == GameState::Score)
+        {
+            // Desenha o jogo
+            scoreMenu.draw(window);   
         }
 
         window.display();

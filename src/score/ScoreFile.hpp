@@ -1,13 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <string>
-
-struct ScoreEntry
-{
-    std::string playerName;
-    int score;
-};
+#include "ScoreEntry.hpp"
 
 class ScoreFile
 {

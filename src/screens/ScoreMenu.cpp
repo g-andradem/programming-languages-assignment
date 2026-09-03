@@ -1,5 +1,4 @@
 #include "ScoreMenu.hpp"
-// #include "../score/ScoreFile.cpp"
 #include <algorithm>
 
 ScoreMenu::ScoreMenu()
@@ -7,9 +6,13 @@ ScoreMenu::ScoreMenu()
     if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
         // Tratar erro caso a fonte não seja encontrada
     }
-    scores.push_back({"Guilherme", 1500});
-    scores.push_back({"Thy", 1200});
-    scores.push_back({"Joao", 900});
+    if (scores.empty()) {
+        scores = ScoreFile::load();
+
+        ScoreFile::save(scores);
+    }
+
+    sortScores();
 
     // std::vector<ScoreEntry> scores = ScoreFile::load();
 }

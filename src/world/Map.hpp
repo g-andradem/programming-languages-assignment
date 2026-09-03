@@ -28,6 +28,7 @@ class Map
         sf::Texture student_4;
         sf::Texture student_5;
 
+        // Hud
         sf::Texture hud_edge;;
         sf::Texture hud_horizontal;
 

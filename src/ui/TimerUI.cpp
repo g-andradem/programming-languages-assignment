@@ -10,12 +10,12 @@ TimerUI::TimerUI()
         std::cerr << "Erro ao carregar fonte do Timer UI\n";
     }
 
-    text.setCharacterSize(32);
+    text.setCharacterSize(60);
     text.setFillColor(sf::Color::White);
-    text.setPosition(
-        {8 * 40.f, 
-        1.5 * 40.f}
-    );
+    text.setPosition({
+        0.9 * 40.f, 
+        0.65 * 40.f
+    });
 }
 
 void TimerUI::update(const Time& Time)

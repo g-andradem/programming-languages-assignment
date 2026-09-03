@@ -5,10 +5,11 @@
 #include "core/Time.hpp"
 #include "ui/TimerUI.hpp"
 #include "ui/ScoreUI.hpp"
+#include "ui/HeartUI.hpp"
 #include "core/Score.hpp"
 #include "screens/MainMenu.hpp"
 #include "screens/ScoreMenu.hpp"
-//#include "score/ScoreFile.hpp"
+
 
 #include <iostream>
 
@@ -64,10 +65,9 @@ int main()
     // Score
     Score score;
     ScoreUI scoreUI;
-    scoreUI.setPosition(
-        2 * 40.f, 
-        1.5 * 40.f
-    );
+
+    // Heart
+    HeartUI heartUI;
 
     // Player
     Player player(score);
@@ -151,7 +151,7 @@ int main()
             time.update(deltaTime);
             timerUI.update(time);
             scoreUI.update(score);
-
+            //heartUI.update(score);
         }
         else if (state == GameState::Score)
         {
@@ -178,7 +178,7 @@ int main()
             player.draw(window);
             timerUI.draw(window);
             scoreUI.draw(window);
-
+            heartUI.draw(window);
         }
         else if (state == GameState::Score)
         {

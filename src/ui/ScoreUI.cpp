@@ -10,9 +10,12 @@ ScoreUI::ScoreUI()
         std::cerr << "Erro ao carregar fonte do Timer UI\n";
     }
 
-    text.setCharacterSize(32);
+    text.setCharacterSize(60);
     text.setFillColor(sf::Color::White);
-    text.setPosition({20.f, 20.f});
+    text.setPosition({
+        15.35 * 40.f, 
+        0.65 * 40.f
+    });
 }
 
 void ScoreUI::update(const Score& score)

@@ -13,11 +13,9 @@ void ScoreFile::save(const std::vector<ScoreEntry>& scores)
         return;
     }
 
-    for (const ScoreEntry& score : scores) {
-        file << score.playerName << ";" << score.score << "\n";
+    for (const ScoreEntry& entry : scores) {
+        file << entry.playerName << ";" << entry.score << "\n";
     }
-
-    file.close();
 }
 
 std::vector<ScoreEntry> ScoreFile::load()
@@ -43,16 +41,12 @@ std::vector<ScoreEntry> ScoreFile::load()
         if (std::getline(ss, playerName, ';') &&
             std::getline(ss, scoreString)) {
 
-            int score = std::stoi(scoreString);
-
             scores.push_back({
                 playerName,
-                score
+                std::stoi(scoreString)
             });
         }
     }
-
-    file.close();
 
     return scores;
 }

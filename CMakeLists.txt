@@ -20,6 +20,7 @@ add_executable(MeuRPG
     src/core/Timer.cpp
     src/ui/TimerUI.cpp
     src/ui/ScoreUI.cpp
+    src/ui/HeartUI.cpp
     src/screens/MainMenu.cpp
     src/screens/ScoreMenu.cpp
     src/score/ScoreFile.cpp

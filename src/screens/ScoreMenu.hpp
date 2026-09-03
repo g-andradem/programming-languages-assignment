@@ -3,12 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-
-typedef struct tScoreEntry
-{
-    std::string playerName;
-    int score;
-}ScoreEntry;
+#include "../score/ScoreEntry.hpp"
+#include "../score/ScoreFile.hpp"
 
 class ScoreMenu
 {

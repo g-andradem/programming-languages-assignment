@@ -1,4 +1,4 @@
-Guilherme;1500
-Thy;1200
-Joao;900
-Maria;750
+Gabriel;968
+Rafael;729
+Ana;482
+Beatriz;315

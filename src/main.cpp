@@ -20,7 +20,6 @@ enum class GameState {
     MainMenu,
     Playing,
     Score,
-    Settings,
     Paused,
     GameOver
 };
@@ -92,14 +91,16 @@ int main()
                 window.close();
             }
 
-            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {
-
-                    GameState temp = state;
-                    state = previousState;
-                    previousState = temp;
-
+            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+                {
+                    if (state != GameState::MainMenu)
+                    {
+                        GameState temp = state;
+                        state = previousState;
+                        previousState = temp;
+                    }
                 }
             }
 
@@ -118,14 +119,14 @@ int main()
                     state = GameState::Score;
                 }
 
-                else if (action == MenuAction::Settings) {
-                    previousState = state;
-                    state = GameState::Settings;
-                }
-
                 else if (action == MenuAction::Exit) {
                     window.close();
                 }
+            }
+            else if (state == GameState::Score) {
+
+                scoreMenu.handleEvent(*event);
+
             }
         }
 
@@ -158,9 +159,6 @@ int main()
             // Atualiza o jogo
 
         }
-        /*else if (state == GameState::Settings) {
-            // configurações
-        }*/
 
         window.clear();
 

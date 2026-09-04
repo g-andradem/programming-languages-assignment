@@ -15,9 +15,9 @@ private:
     sf::Font font;
 
     sf::Text title;
+    sf::Text subTitle;
     sf::Text playButton;
     sf::Text scoreButton;
-    sf::Text settingsButton;
     sf::Text exitButton;
 
     int selectedButton = 0;

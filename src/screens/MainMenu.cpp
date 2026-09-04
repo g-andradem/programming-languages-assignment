@@ -3,9 +3,9 @@
 
 MainMenu::MainMenu(): 
     title(font),
+    subTitle(font),
     playButton(font),
     scoreButton(font),
-    settingsButton(font),
     exitButton(font)
 {
     
@@ -13,39 +13,46 @@ MainMenu::MainMenu():
         std::cerr << "Erro ao carregar fonte!\n";
     }
 
-    title.setString("COLANDO NA PROVA DE\nLINGUAGENS DE PROGRAMACAO");
-    title.setCharacterSize(48);
+    title.setString("Obscur Clair");
+    title.setCharacterSize(80);
     title.setPosition({
         416.f - title.getLocalBounds().size.x / 2.f,
         150.f
     });
 
+    subTitle.setString("Definition Edition");
+    subTitle.setCharacterSize(40);
+    subTitle.setLetterSpacing(1.2f);
+    subTitle.setFillColor(sf::Color::Yellow);
+
+    sf::FloatRect bounds = subTitle.getLocalBounds();
+    subTitle.setOrigin(
+        bounds.position + bounds.size / 2.f
+    );
+    subTitle.setPosition({
+        416.f,
+        260.f
+    });
+
     playButton.setString("Jogar");
-    playButton.setCharacterSize(32);
+    playButton.setCharacterSize(42);
     playButton.setPosition({
         416.f - playButton.getLocalBounds().size.x / 2.f,
-        350.f
+        380.f
     });
 
     scoreButton.setString("Placar");
-    scoreButton.setCharacterSize(32);
+    scoreButton.setCharacterSize(42);
     scoreButton.setPosition({
         416.f - playButton.getLocalBounds().size.x / 2.f,
-        420.f
-    });
-
-    settingsButton.setString("Configuracoes");
-    settingsButton.setCharacterSize(32);
-    settingsButton.setPosition({
-        416.f - settingsButton.getLocalBounds().size.x / 2.f,
-        490.f
+        450.f
     });
 
     exitButton.setString("Sair");
-    exitButton.setCharacterSize(32);
+    exitButton.setCharacterSize(42);
     exitButton.setPosition({
         416.f - exitButton.getLocalBounds().size.x / 2.f,
-        560.f
+        520.f
     });
 
     updateSelection();
@@ -61,7 +68,7 @@ MenuAction MainMenu::handleEvent(const sf::Event& event)
             selectedButton--;
 
             if (selectedButton < 0)
-                selectedButton = 3;
+                selectedButton = 2;
 
             updateSelection();
         }
@@ -70,7 +77,7 @@ MenuAction MainMenu::handleEvent(const sf::Event& event)
 
             selectedButton++;
 
-            if (selectedButton > 3)
+            if (selectedButton > 2)
                 selectedButton = 0;
 
             updateSelection();
@@ -83,11 +90,8 @@ MenuAction MainMenu::handleEvent(const sf::Event& event)
 
             if (selectedButton == 1)
                 return MenuAction::Score;
-            
-            if (selectedButton == 2)
-                return MenuAction::Settings;
 
-            if (selectedButton == 3)
+            if (selectedButton == 2)
                 return MenuAction::Exit;
         }
     }
@@ -103,9 +107,9 @@ void MainMenu::update(float deltaTime)
 void MainMenu::draw(sf::RenderWindow& window)
 {
     window.draw(title);
+    window.draw(subTitle);
     window.draw(playButton);
     window.draw(scoreButton);
-    window.draw(settingsButton);
     window.draw(exitButton);
 }
 
@@ -113,40 +117,28 @@ void MainMenu::updateSelection()
 {
     playButton.setString("Jogar");
     scoreButton.setString("Placar");
-    settingsButton.setString("Configuracoes");
     exitButton.setString("Sair");
 
     if (selectedButton == 0) {
-        playButton.setCharacterSize(40);
-        scoreButton.setCharacterSize(32);
-        settingsButton.setCharacterSize(32);
-        exitButton.setCharacterSize(32);
+        playButton.setCharacterSize(50);
+        scoreButton.setCharacterSize(42);
+        exitButton.setCharacterSize(42);
 
-        playButton.setFillColor(sf::Color::Yellow);
+        //playButton.setFillColor(sf::Color::Yellow);
 
         playButton.setString("> Jogar");
     }
     else if (selectedButton == 1) {
-        playButton.setCharacterSize(32);
-        scoreButton.setCharacterSize(40);
-        settingsButton.setCharacterSize(32);
-        exitButton.setCharacterSize(32);
+        playButton.setCharacterSize(42);
+        scoreButton.setCharacterSize(50);
+        exitButton.setCharacterSize(42);
 
         scoreButton.setString("> Placar");
     }
     else if (selectedButton == 2) {
-        playButton.setCharacterSize(32);
-        scoreButton.setCharacterSize(32);
-        settingsButton.setCharacterSize(40);
-        exitButton.setCharacterSize(32);
-
-        settingsButton.setString("> Configuracoes");
-    }
-    else if (selectedButton == 3) {
-        playButton.setCharacterSize(32);
-        scoreButton.setCharacterSize(32);
-        settingsButton.setCharacterSize(32);
-        exitButton.setCharacterSize(40);
+        playButton.setCharacterSize(42);
+        scoreButton.setCharacterSize(42);
+        exitButton.setCharacterSize(50);
 
         exitButton.setString("> Sair");
     }

@@ -9,50 +9,43 @@ MainMenu::MainMenu():
     exitButton(font)
 {
     
-    if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
+    if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte!\n";
     }
 
-    title.setString("Obscur Clair");
-    title.setCharacterSize(80);
+    title.setString("PLANO B");
+    title.setCharacterSize(100);
+    title.setLetterSpacing(1.1f);
     title.setPosition({
         416.f - title.getLocalBounds().size.x / 2.f,
         150.f
     });
 
-    subTitle.setString("Definition Edition");
-    subTitle.setCharacterSize(40);
+    subTitle.setString("DEFINITIVE EDITION");
+    subTitle.setCharacterSize(50);
     subTitle.setLetterSpacing(1.2f);
     subTitle.setFillColor(sf::Color::Yellow);
-
-    sf::FloatRect bounds = subTitle.getLocalBounds();
-    subTitle.setOrigin(
-        bounds.position + bounds.size / 2.f
-    );
     subTitle.setPosition({
-        416.f,
+        416.f - subTitle.getLocalBounds().size.x / 2.f,
         260.f
     });
 
     playButton.setString("Jogar");
-    playButton.setCharacterSize(42);
     playButton.setPosition({
         416.f - playButton.getLocalBounds().size.x / 2.f,
-        380.f
+        390.f
     });
 
     scoreButton.setString("Placar");
-    scoreButton.setCharacterSize(42);
     scoreButton.setPosition({
         416.f - playButton.getLocalBounds().size.x / 2.f,
-        450.f
+        460.f
     });
 
     exitButton.setString("Sair");
-    exitButton.setCharacterSize(42);
     exitButton.setPosition({
         416.f - exitButton.getLocalBounds().size.x / 2.f,
-        520.f
+        530.f
     });
 
     updateSelection();
@@ -115,33 +108,35 @@ void MainMenu::draw(sf::RenderWindow& window)
 
 void MainMenu::updateSelection()
 {
-    playButton.setString("Jogar");
-    scoreButton.setString("Placar");
-    exitButton.setString("Sair");
+    playButton.setCharacterSize(52);
+    scoreButton.setCharacterSize(52);
+    exitButton.setCharacterSize(52);
 
-    if (selectedButton == 0) {
-        playButton.setCharacterSize(50);
-        scoreButton.setCharacterSize(42);
-        exitButton.setCharacterSize(42);
+    if (selectedButton == 0)
+        playButton.setCharacterSize(70);
+    else if (selectedButton == 1)
+        scoreButton.setCharacterSize(70);
+    else if (selectedButton == 2)
+        exitButton.setCharacterSize(70);
 
-        //playButton.setFillColor(sf::Color::Yellow);
+    centerText(playButton, 416.f);
+    centerText(scoreButton, 416.f);
+    centerText(exitButton, 416.f);
+}
 
-        playButton.setString("> Jogar");
-    }
-    else if (selectedButton == 1) {
-        playButton.setCharacterSize(42);
-        scoreButton.setCharacterSize(50);
-        exitButton.setCharacterSize(42);
+void MainMenu::centerText(sf::Text& text, float x)
+{
+    auto bounds = text.getLocalBounds();
 
-        scoreButton.setString("> Placar");
-    }
-    else if (selectedButton == 2) {
-        playButton.setCharacterSize(42);
-        scoreButton.setCharacterSize(42);
-        exitButton.setCharacterSize(50);
+    text.setOrigin({
+        bounds.position.x + bounds.size.x / 2.f,
+        bounds.position.y + bounds.size.y / 2.f
+    });
 
-        exitButton.setString("> Sair");
-    }
+    text.setPosition({
+        x,
+        text.getPosition().y
+    });
 }
 
 int MainMenu::getSelectedButton() const

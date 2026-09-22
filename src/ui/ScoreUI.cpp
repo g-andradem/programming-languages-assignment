@@ -6,15 +6,15 @@
 ScoreUI::ScoreUI()
     : text(font)
 {
-    if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
+    if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte do Timer UI\n";
     }
 
-    text.setCharacterSize(60);
+    text.setCharacterSize(80);
     text.setFillColor(sf::Color::White);
     text.setPosition({
-        15.35 * 40.f, 
-        0.65 * 40.f
+        14.8 * 40.f, 
+        0.4 * 40.f
     });
 }
 

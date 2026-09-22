@@ -4,7 +4,7 @@
 
 ScoreMenu::ScoreMenu()
 {
-    if (!font.openFromFile("assets/fonts/JetBrainsMono-Regular.ttf")) {
+    if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         // Tratar erro caso a fonte não seja encontrada
     }
     scores = ScoreFile::load();
@@ -84,8 +84,8 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         // =========================
 
         std::string text =
-            std::to_string(i + 1) + ". " +
-            scores[i].playerName + " - " +
+            std::to_string(i + 1) + " " +
+            scores[i].playerName + " " +
             std::to_string(scores[i].score);
 
         sf::Text scoreText(font, text, 30);

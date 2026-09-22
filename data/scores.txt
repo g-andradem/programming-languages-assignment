@@ -1,4 +1,3 @@
-Gabriel;968
-Rafael;729
-Ana;482
+Gabri;968
+Rafadd;729
 Beatriz;315

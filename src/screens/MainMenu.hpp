@@ -28,6 +28,7 @@ public:
     MenuAction handleEvent(const sf::Event& event);
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
+    void centerText(sf::Text& text, float x);
 
     void updateSelection();
 

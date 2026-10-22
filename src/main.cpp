@@ -43,6 +43,7 @@ int main()
 
     // Teacher
     Teacher teacher;
+    // ver dps
     teacher.setAnimation(TeacherAnimation::Front);
     teacher.setOrigin(
         teacher.getLocalBounds().size / 2.f

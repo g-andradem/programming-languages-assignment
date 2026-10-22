@@ -2,8 +2,17 @@
 #include <algorithm>
 #include <iostream>
 
-ScoreMenu::ScoreMenu()
+ScoreMenu::ScoreMenu():
+    backgroundSprite(backgroundTexture)
 {
+    if (!backgroundTexture.loadFromFile("assets/textures/background.jpg")) {
+        std::cerr << "Erro ao carregar imagem de fundo!\n";
+    }
+    
+    backgroundSprite.setTextureRect(
+        sf::IntRect({0, 0}, {832, 832})
+    );
+
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         // Tratar erro caso a fonte não seja encontrada
     }
@@ -29,6 +38,8 @@ void ScoreMenu::sortScores()
 
 void ScoreMenu::draw(sf::RenderWindow& window)
 {
+    window.draw(backgroundSprite);
+    
     if (editing)
     {
         sf::Text title(font, "EDITAR NOME", 50);

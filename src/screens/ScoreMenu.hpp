@@ -14,6 +14,10 @@ private:
 
     std::vector<ScoreEntry> scores;
 
+    // BackGround
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
     // Score atualmente selecionado
     std::size_t selectedIndex = 0;
 

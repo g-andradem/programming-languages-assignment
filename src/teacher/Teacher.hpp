@@ -22,8 +22,6 @@ class Teacher {
 
         sf::FloatRect getLocalBounds();
 
-        void updateAnimation(float deltaTime);
-
         void setAnimation(TeacherAnimation animation);
 
     private:
@@ -33,5 +31,13 @@ class Teacher {
 
         sf::Sprite sprite;
 
-        TeacherAnimation currentAnimation;
+        float animationTimer = 0.0f;
+        float animationInterval = 0.5f; // segundos entre sprites
+
+        int animationFrame = 0; // 0 = frente, 1 = diagonal, 2 = lado
+        int animationDirection = 1; // 1 = avançar, -1 = voltar
+
+        TeacherAnimation currentAnimation = TeacherAnimation::Front;
+
+        void updateAnimation(float deltaTime);
 };

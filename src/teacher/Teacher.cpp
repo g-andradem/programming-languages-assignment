@@ -51,7 +51,39 @@ sf::FloatRect Teacher::getLocalBounds(){
 
 void Teacher::updateAnimation(float deltaTime)
 {
-    // Por enquanto não precisamos do deltaTime.
+    animationTimer += deltaTime;
+
+    if (animationTimer < animationInterval)
+        return;
+
+    animationTimer -= animationInterval;
+
+    // Avança ou retrocede um frame
+    animationFrame += animationDirection;
+
+    // Chegou ao sprite lateral: começa a voltar
+    if (animationFrame == 2)
+        animationDirection = -1;
+
+    // Chegou ao sprite frontal: começa a avançar novamente
+    else if (animationFrame == 0)
+        animationDirection = 1;
+
+    // Atualiza a imagem exibida
+    switch (animationFrame)
+    {
+        case 0:
+            setAnimation(TeacherAnimation::Front);
+            break;
+
+        case 1:
+            setAnimation(TeacherAnimation::Diagonal);
+            break;
+
+        case 2:
+            setAnimation(TeacherAnimation::Side);
+            break;
+    }
 }
 
 void Teacher::setAnimation(TeacherAnimation animation)

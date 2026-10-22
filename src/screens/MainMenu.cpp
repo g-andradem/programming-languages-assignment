@@ -2,12 +2,21 @@
 #include <iostream>
 
 MainMenu::MainMenu(): 
+    backgroundSprite(backgroundTexture),
     title(font),
     subTitle(font),
     playButton(font),
     scoreButton(font),
     exitButton(font)
 {
+    if (!backgroundTexture.loadFromFile("assets/textures/background.jpg")) {
+        std::cerr << "Erro ao carregar imagem de fundo!\n";
+    }
+    
+    backgroundSprite.setTextureRect(
+        sf::IntRect({0, 0}, {832, 832})
+    );
+    // backgroundSprite.setScale({832.f / textureSize.x, 624.f / textureSize.y});
     
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte!\n";
@@ -99,6 +108,8 @@ void MainMenu::update(float deltaTime)
 
 void MainMenu::draw(sf::RenderWindow& window)
 {
+    window.draw(backgroundSprite);
+
     window.draw(title);
     window.draw(subTitle);
     window.draw(playButton);

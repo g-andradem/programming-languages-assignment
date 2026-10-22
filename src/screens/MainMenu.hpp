@@ -20,6 +20,9 @@ private:
     sf::Text scoreButton;
     sf::Text exitButton;
 
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
     int selectedButton = 0;
 
 public:

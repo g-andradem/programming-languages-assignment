@@ -33,6 +33,14 @@ GameScreen::GameScreen():
     // Heart
     HeartUI heartUI;
 
+    // Time
+    Time time;
+    TimerUI timerUI;
+
+    // Score
+    Score score;
+    ScoreUI scoreUI;
+
     // Player
     Player player(score);
     player.setOrigin(
@@ -43,17 +51,12 @@ GameScreen::GameScreen():
         8 * 64.f + 32.f // ALTURA
     );
 
-    // Time
-    Time time;
-    TimerUI timerUI;
-
-    // Score
-    Score score;
-    ScoreUI scoreUI;
+    
 }
 
 // Seleciona Opcao no Menu
-MenuAction MainMenu::handleEvent(const sf::Event& event)
+// VER DEPOIS
+GameAction GameScreen::handleEvent(const sf::Event& event)
 {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
 

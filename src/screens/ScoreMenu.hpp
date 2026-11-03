@@ -37,7 +37,7 @@ public:
 
     void draw(sf::RenderWindow& window);
 
-    void handleEvent(const sf::Event& event);
+    int handleEvent(const sf::Event& event);
 
     void editScore(std::size_t index);
 

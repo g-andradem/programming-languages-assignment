@@ -2,20 +2,31 @@
 
 #include <SFML/Graphics.hpp>
 
-enum class GameAction {
-    Play,
-    Paused,
-    Exit
-};
+#include "../core/Time.hpp"
+#include "../core/Score.hpp"
+#include "../ui/TimerUI.hpp"
+#include "../ui/ScoreUI.hpp"
+#include "../ui/HeartUI.hpp"
+
+#include "../player/Player.hpp"
+#include "../teacher/Teacher.hpp"
+#include "../world/Map.hpp"
 
 class GameScreen {
 private:
-
+    Map map;
+    Teacher teacher;
+    HeartUI heartUI;
+    Time time;
+    TimerUI timerUI;
+    Score score;
+    ScoreUI scoreUI;
+    Player player;
 
 public:
-    //MainMenu();
+    GameScreen();
 
-    GameAction handleEvent(const sf::Event& event);
+    int handleEvent(const sf::Event& event);
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
     //void centerText(sf::Text& text, float x);

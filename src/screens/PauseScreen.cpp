@@ -11,7 +11,7 @@ PauseScreen::PauseScreen():
     }
 
     // Fundo escuro transparente
-    overlay.setSize({832.f, 624.f});
+    overlay.setSize({832.f, 832.f});
     overlay.setFillColor(sf::Color(0, 0, 0, 180));
 
     // Título
@@ -38,12 +38,11 @@ PauseScreen::PauseScreen():
 
 PauseAction PauseScreen::handleEvent(const sf::Event& event)
 {
-    if (const auto* keyPressed =
-        event.getIf<sf::Event::KeyPressed>())
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
         // Voltar ao jogo com ESC
         if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-            return PauseAction::Resume;
+            return PauseAction::Play;
 
         if (keyPressed->scancode == sf::Keyboard::Scancode::W)
         {
@@ -68,7 +67,7 @@ PauseAction PauseScreen::handleEvent(const sf::Event& event)
         else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
         {
             if (selectedButton == 0)
-                return PauseAction::Resume;
+                return PauseAction::Play;
 
             if (selectedButton == 1)
                 return PauseAction::Exit;

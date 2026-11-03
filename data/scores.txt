@@ -1,2 +1,3 @@
-Rafaddaa;729
-Beatrizddd;315
+Ana;320
+Pedro;180
+Joao;100

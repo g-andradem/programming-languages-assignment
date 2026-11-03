@@ -224,7 +224,7 @@ void ScoreMenu::editScore(std::size_t index)
     editingName = scores[index].playerName;
 }
 
-void ScoreMenu::handleEvent(const sf::Event& event)
+int ScoreMenu::handleEvent(const sf::Event& event)
 {
     if (editing)
     {
@@ -298,7 +298,7 @@ void ScoreMenu::handleEvent(const sf::Event& event)
             }
         }
 
-        return;
+        return 0;
     }
 
 
@@ -306,17 +306,12 @@ void ScoreMenu::handleEvent(const sf::Event& event)
     // MENU NORMAL
     // =====================================
 
-    if (const auto* keyPressed =
-        event.getIf<sf::Event::KeyPressed>())
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
         // W -> score anterior
-        if (keyPressed->scancode ==
-            sf::Keyboard::Scancode::W)
+        if (keyPressed->scancode == sf::Keyboard::Scancode::W)
         {
-            if (selectedIndex > 0)
-            {
-                selectedIndex--;
-            }
+            if (selectedIndex > 0) {selectedIndex--;}
         }
 
         // S -> próximo score
@@ -349,7 +344,7 @@ void ScoreMenu::handleEvent(const sf::Event& event)
                  sf::Keyboard::Scancode::Enter)
         {
             if (scores.empty())
-                return;
+                return 0;
 
             if (selectedButton == 0)
             {
@@ -360,5 +355,12 @@ void ScoreMenu::handleEvent(const sf::Event& event)
                 deleteScore(selectedIndex);
             }
         }
+
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+        {
+            return 1; // Voltar ao menu anterior
+        }
+
     }
+    return 0;
 }

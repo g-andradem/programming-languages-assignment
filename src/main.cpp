@@ -5,12 +5,9 @@
 #include "screens/GameScreen.hpp"
 #include "screens/PauseScreen.hpp"
 
-#include <iostream>
-
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
 
-// Nao possui Paused e GameOver, ou talvez possua
 enum class GameState {
     MainMenu,
     Playing,
@@ -50,55 +47,62 @@ int main()
 
     // Looping Main
     while (window.isOpen()){
-        while (const std::optional event = window.pollEvent()){
-            if (event->is<sf::Event::Closed>()){
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
                 window.close();
             }
 
-            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            if (state == GameState::MainMenu)
             {
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-                {
-                    if (state != GameState::MainMenu)
-                    {
-                        GameState temp = state;
-                        state = previousState;
-                        previousState = temp;
-                    }
-                }
-            }
-
-            // menu recebe eventos
-            if (state == GameState::MainMenu) {
                 MenuAction action = mainMenu.handleEvent(*event);
 
-                if (action == MenuAction::Play) {
-                    // trocar o previous State depois
-                    previousState = GameState::Paused;
+                if (action == MenuAction::Play)
+                {
+                    previousState = GameState::MainMenu;
                     state = GameState::Playing;
                 }
-
-                else if (action == MenuAction::Score) {
+                else if (action == MenuAction::Score)
+                {
                     previousState = state;
                     state = GameState::Score;
                 }
-
-                else if (action == MenuAction::Exit) {
+                else if (action == MenuAction::Exit)
+                {
                     window.close();
                 }
             }
-            else if (state == GameState::Score) {
-                scoreMenu.handleEvent(*event);
+            else if (state == GameState::Playing)
+            {
+                if (gameScreen.handleEvent(*event) == 1)
+                {
+                    previousState = GameState::Playing;
+                    state = GameState::Paused;
+                }
             }
+            else if (state == GameState::Paused)
+            {
+                PauseAction action = pauseScreen.handleEvent(*event);
 
-            // VER DEPOIS
-            else if (state == GameState::Playing) {
-                gameScreen.handleEvent(*event);
-                //MenuAction action = mainMenu.handleEvent(*event);
-
-                // previousState = 
+                if (action == PauseAction::Play)
+                {
+                    state = previousState;
+                }
+                else if (action == PauseAction::Exit)
+                {
+                    window.close();
+                }
+            }
+            else if (state == GameState::Score)
+            {
+                if(scoreMenu.handleEvent(*event) == 1)
+                {
+                    state = previousState;
+                }
             }
         }
+
 
         sf::View view(sf::FloatRect(
             {0.f, 0.f},
@@ -125,6 +129,11 @@ int main()
             // Atualiza a Pontuação
             // scoreMenu.update(deltaTime);
         }
+        else if (state == GameState::Paused)
+        {
+            // Atualiza o Pause
+            // scoreMenu.update(deltaTime);
+        }
 
         // Limpa a Tela
         window.clear();
@@ -143,6 +152,12 @@ int main()
         {
             // Desenha a Pontuação
             scoreMenu.draw(window);   
+        }
+        else if (state == GameState::Paused)
+        {
+            // Desenha o Pause
+            gameScreen.draw(window);
+            pauseScreen.draw(window);
         }
 
         window.display();

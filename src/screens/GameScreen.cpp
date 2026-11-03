@@ -1,24 +1,23 @@
 #include "GameScreen.hpp"
 #include <iostream>
 
-#include "core/Time.hpp"
-#include "core/Score.hpp"
-#include "ui/TimerUI.hpp"
-#include "ui/ScoreUI.hpp"
-#include "ui/HeartUI.hpp"
-
-#include "player/Player.hpp"
-#include "teacher/Teacher.hpp"
-#include "world/Map.hpp"
-
 GameScreen::GameScreen(): 
-
+    player(score)
 {
     // Mapa
-    Map map;
+    //Map map;
 
     // Teacher
-    Teacher teacher;
+    //Teacher teacher;
+
+    // Heart
+    //HeartUI heartUI;
+
+    // Time
+    //Time time;
+    //TimerUI timerUI;    
+
+    
     // ver dps
     teacher.setAnimation(TeacherAnimation::Front);
     teacher.setOrigin(
@@ -30,19 +29,14 @@ GameScreen::GameScreen():
         3 * 64.f + 32.f // ALTURA
     );
 
-    // Heart
-    HeartUI heartUI;
-
-    // Time
-    Time time;
-    TimerUI timerUI;
+    
 
     // Score
-    Score score;
-    ScoreUI scoreUI;
+    //Score score;
+    //ScoreUI scoreUI;
 
     // Player
-    Player player(score);
+    //Player player(score);
     player.setOrigin(
         player.getLocalBounds().size / 2.f
     );
@@ -50,50 +44,21 @@ GameScreen::GameScreen():
         6 * 64.f + 32.f,
         8 * 64.f + 32.f // ALTURA
     );
-
-    
 }
 
 // Seleciona Opcao no Menu
 // VER DEPOIS
-GameAction GameScreen::handleEvent(const sf::Event& event)
+int GameScreen::handleEvent(const sf::Event& event)
 {
-    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
-
-        if (keyPressed->scancode == sf::Keyboard::Scan::W) {
-
-            selectedButton--;
-
-            if (selectedButton < 0)
-                selectedButton = 2;
-
-            updateSelection();
-        }
-
-        else if (keyPressed->scancode == sf::Keyboard::Scan::S) {
-
-            selectedButton++;
-
-            if (selectedButton > 2)
-                selectedButton = 0;
-
-            updateSelection();
-        }
-
-        else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
-
-            if (selectedButton == 0)
-                return MenuAction::Play;
-
-            if (selectedButton == 1)
-                return MenuAction::Score;
-
-            if (selectedButton == 2)
-                return MenuAction::Exit;
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
+    {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
+            printf("pressionado");
+            return 1;
         }
     }
 
-    return MenuAction::None;
+    return 0;
 }
 
 void GameScreen::update(float deltaTime)
@@ -116,42 +81,4 @@ void GameScreen::draw(sf::RenderWindow& window)
     timerUI.draw(window);
     scoreUI.draw(window);
     heartUI.draw(window);   
-}
-
-void MainMenu::updateSelection()
-{
-    playButton.setCharacterSize(52);
-    scoreButton.setCharacterSize(52);
-    exitButton.setCharacterSize(52);
-
-    if (selectedButton == 0)
-        playButton.setCharacterSize(70);
-    else if (selectedButton == 1)
-        scoreButton.setCharacterSize(70);
-    else if (selectedButton == 2)
-        exitButton.setCharacterSize(70);
-
-    centerText(playButton, 416.f);
-    centerText(scoreButton, 416.f);
-    centerText(exitButton, 416.f);
-}
-
-void MainMenu::centerText(sf::Text& text, float x)
-{
-    auto bounds = text.getLocalBounds();
-
-    text.setOrigin({
-        bounds.position.x + bounds.size.x / 2.f,
-        bounds.position.y + bounds.size.y / 2.f
-    });
-
-    text.setPosition({
-        x,
-        text.getPosition().y
-    });
-}
-
-int MainMenu::getSelectedButton() const
-{
-    return selectedButton;
 }

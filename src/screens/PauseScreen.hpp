@@ -5,7 +5,7 @@
 enum class PauseAction
 {
     None,
-    Resume,
+    Play,
     Exit
 };
 

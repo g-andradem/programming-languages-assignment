@@ -1,21 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include "player/Player.hpp"
-#include "world/Map.hpp"
-#include "teacher/Teacher.hpp"
-#include "core/Time.hpp"
-#include "ui/TimerUI.hpp"
-#include "ui/ScoreUI.hpp"
-#include "ui/HeartUI.hpp"
-#include "core/Score.hpp"
+
 #include "screens/MainMenu.hpp"
 #include "screens/ScoreMenu.hpp"
-
+#include "screens/GameScreen.hpp"
+#include "screens/PauseScreen.hpp"
 
 #include <iostream>
 
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
 
+// Nao possui Paused e GameOver, ou talvez possua
 enum class GameState {
     MainMenu,
     Playing,
@@ -38,46 +33,14 @@ int main()
     // Menu
     MainMenu mainMenu;
 
-    // Mapa
-    Map map;
-
-    // Teacher
-    Teacher teacher;
-    // ver dps
-    teacher.setAnimation(TeacherAnimation::Front);
-    teacher.setOrigin(
-        teacher.getLocalBounds().size / 2.f
-    );
-    teacher.setScale(4.f, 4.f);
-    teacher.setPosition(
-        10 * 64.f + 32.f,
-        3 * 64.f + 32.f // ALTURA
-    );
+    // Game Screen
+    GameScreen gameScreen;
 
     // Score Menu
     ScoreMenu scoreMenu;
     
-
-    // Time
-    Time time;
-    TimerUI timerUI;
-
-    // Score
-    Score score;
-    ScoreUI scoreUI;
-
-    // Heart
-    HeartUI heartUI;
-
-    // Player
-    Player player(score);
-    player.setOrigin(
-        player.getLocalBounds().size / 2.f
-    );
-    player.setPosition(
-        6 * 64.f + 32.f,
-        8 * 64.f + 32.f // ALTURA
-    );
+    // Pause Screen
+    PauseScreen pauseScreen;
 
     // Estado do Jogo
     GameState state = GameState::MainMenu;
@@ -111,7 +74,7 @@ int main()
 
                 if (action == MenuAction::Play) {
                     // trocar o previous State depois
-                    previousState = state;
+                    previousState = GameState::Paused;
                     state = GameState::Playing;
                 }
 
@@ -125,9 +88,15 @@ int main()
                 }
             }
             else if (state == GameState::Score) {
-
                 scoreMenu.handleEvent(*event);
+            }
 
+            // VER DEPOIS
+            else if (state == GameState::Playing) {
+                gameScreen.handleEvent(*event);
+                //MenuAction action = mainMenu.handleEvent(*event);
+
+                // previousState = 
             }
         }
 
@@ -138,50 +107,41 @@ int main()
 
         window.setView(view);
 
+        // Define o deltaTime
         float deltaTime = clock.restart().asSeconds();
 
         if (state == GameState::MainMenu)
         {
-            // menu
+            // Atualiza o Menu
             mainMenu.update(deltaTime);
         }
         else if (state == GameState::Playing)
         {
-            // Atualiza o jogo
-            player.update(deltaTime);
-            teacher.update(deltaTime);
-            time.update(deltaTime);
-            timerUI.update(time);
-            scoreUI.update(score);
-            //heartUI.update(score);
+            // Atualiza o Jogo
+            gameScreen.update(deltaTime);
         }
         else if (state == GameState::Score)
         {
-            // Atualiza o jogo
-
+            // Atualiza a Pontuação
+            // scoreMenu.update(deltaTime);
         }
 
+        // Limpa a Tela
         window.clear();
 
         if (state == GameState::MainMenu)
         {
             // Desenha o menu
             mainMenu.draw(window);
-
         }
         else if (state == GameState::Playing)
         {
-            // Desenha o jogo
-            map.draw(window);
-            teacher.draw(window);
-            player.draw(window);
-            timerUI.draw(window);
-            scoreUI.draw(window);
-            heartUI.draw(window);
+            // Desenha o Jogo
+            gameScreen.draw(window);
         }
         else if (state == GameState::Score)
         {
-            // Desenha o jogo
+            // Desenha a Pontuação
             scoreMenu.draw(window);   
         }
 

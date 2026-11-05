@@ -34,6 +34,11 @@ void HeartUI::loseLife()
     }
 }
 
+void HeartUI::setLives(int lives)
+{
+    this->lives = std::clamp(lives, 0, 3);
+}
+
 void HeartUI::draw(sf::RenderWindow& window)
 {
     for (int i = 0; i < lives; ++i) {

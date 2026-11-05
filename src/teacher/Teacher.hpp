@@ -17,7 +17,7 @@ class Teacher
         sf::Sprite sprite;
 
         float animationTimer = 0.0f;
-        float animationInterval = 2.0f; // segundos entre sprites
+        float animationInterval = 2.2f; // segundos entre sprites
 
         int animationFrame = 0; // 0 = frente, 1 = diagonal, 2 = lado
         int animationDirection = 1; // 1 = avançar, -1 = voltar
@@ -41,4 +41,7 @@ class Teacher
         sf::FloatRect getLocalBounds();
 
         void setAnimation(TeacherAnimation animation);
+        TeacherAnimation getCurrentAnimation() const;
+
+        void decreaseAnimationInterval();
 };

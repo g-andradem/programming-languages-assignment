@@ -21,31 +21,38 @@ Teacher::Teacher():
     );
 }
 
-void Teacher::setOrigin(sf::Vector2f origin){
+void Teacher::setOrigin(sf::Vector2f origin)
+{
     sprite.setOrigin(origin);
 }
 
-void Teacher::setScale(float width, float height){
+void Teacher::setScale(float width, float height)
+{
     sprite.setScale({width, height});
 }
 
-void Teacher::setPosition(float x, float y){
+void Teacher::setPosition(float x, float y)
+{
     sprite.setPosition({x, y});
 }
 
-void Teacher::update(float deltaTime){
+void Teacher::update(float deltaTime)
+{
     updateAnimation(deltaTime);
 }
 
-void Teacher::draw(sf::RenderWindow& window){
+void Teacher::draw(sf::RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-sf::Vector2f Teacher::getPosition(){
+sf::Vector2f Teacher::getPosition()
+{
     return sprite.getPosition();
 }
 
-sf::FloatRect Teacher::getLocalBounds(){
+sf::FloatRect Teacher::getLocalBounds()
+{
     return sprite.getLocalBounds();
 }
 
@@ -106,22 +113,12 @@ void Teacher::setAnimation(TeacherAnimation animation)
     }
 }
 
-/*
-// Teacher Animation
-if (event->is<sf::Event::KeyPressed>())
+TeacherAnimation Teacher::getCurrentAnimation() const
 {
-    const auto& keyEvent = event->getIf<sf::Event::KeyPressed>();
+    return currentAnimation;
+}
 
-    if (keyEvent->code == sf::Keyboard::Key::Num1)
-    {
-        teacher.setAnimation(TeacherAnimation::Front);
-    }
-    else if (keyEvent->code == sf::Keyboard::Key::Num2)
-    {
-        teacher.setAnimation(TeacherAnimation::Diagonal);
-    }
-    else if (keyEvent->code == sf::Keyboard::Key::Num3)
-    {
-        teacher.setAnimation(TeacherAnimation::Side);
-    }
-}*/
+void Teacher::decreaseAnimationInterval()
+{
+    animationInterval -= 0.5f;
+}

@@ -4,6 +4,7 @@
 #include "screens/ScoreMenu.hpp"
 #include "screens/GameScreen.hpp"
 #include "screens/PauseScreen.hpp"
+#include "screens/GameOverScreen.hpp"
 
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
@@ -38,6 +39,9 @@ int main()
     
     // Pause Screen
     PauseScreen pauseScreen;
+
+    // GameOver Screen
+    GameOverScreen gameOverScreen;
 
     // Estado do Jogo
     GameState state = GameState::MainMenu;
@@ -75,11 +79,7 @@ int main()
             }
             else if (state == GameState::Playing)
             {
-                if (gameScreen.handleEvent(*event) == 1)
-                {
-                    previousState = GameState::Playing;
-                    state = GameState::Paused;
-                }
+                gameScreen.handleEvent(*event);
             }
             else if (state == GameState::Paused)
             {
@@ -93,6 +93,11 @@ int main()
                 {
                     window.close();
                 }
+            }
+            else if (state == GameState::GameOver)
+            {
+                // Futuramente:
+                // GameOverAction action = gameOverScreen.handleEvent(*event);
             }
             else if (state == GameState::Score)
             {
@@ -122,6 +127,18 @@ int main()
         {
             // Atualiza o Jogo
             gameScreen.update(deltaTime);
+
+            GameAction action = gameScreen.getAction();
+
+            if (action == GameAction::GameOver)
+            {
+                state = GameState::GameOver;
+            }
+            else if (action == GameAction::Pause)
+            {
+                previousState = GameState::Playing;
+                state = GameState::Paused;
+            }
         }
         else if (state == GameState::Score)
         {
@@ -157,6 +174,10 @@ int main()
             // Desenha o Pause
             gameScreen.draw(window);
             pauseScreen.draw(window);
+        }
+        else if (state == GameState::GameOver)
+        {
+            gameOverScreen.draw(window);
         }
 
         window.display();

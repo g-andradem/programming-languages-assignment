@@ -23,6 +23,7 @@ add_executable(MeuRPG
     src/ui/HeartUI.cpp
     src/screens/MainMenu.cpp
     src/screens/GameScreen.cpp
+    src/screens/GameOverScreen.cpp
     src/screens/ScoreMenu.cpp
     src/screens/PauseScreen.cpp
     src/score/ScoreFile.cpp

@@ -15,12 +15,6 @@ class Player {
         Score& score;
 
         Timer scoreTimer;
-        /*
-        Timer animationTimer(0.15f);
-        Timer attackCooldown(2.f);
-        Timer scoreTimer(1.f);
-        Timer interactionTimer(0.5f);
-        */
 
         sf::Texture frontTexture;
         sf::Texture rightTexture;
@@ -30,6 +24,13 @@ class Player {
         sf::Sprite sprite;
 
         PlayerAnimation currentAnimation;
+
+        int health = 3;
+
+        bool isStunned = false;
+
+        float stunTimer = 0.f;
+        float stunDuration = 2.f;
     public:
         Player(Score& score);
 
@@ -41,7 +42,14 @@ class Player {
         void setPosition(float WIDHT, float HEIGHT);
 
         void updateAnimation(float deltaTime, PlayerAnimation animation);
+        PlayerAnimation getCurrentAnimation() const;
 
         void setOrigin(sf::Vector2f origin);
         sf::FloatRect getLocalBounds();
+
+        void takeDamage();
+        void updateStun(float deltaTime);
+
+        bool getIsStunned() const;
+        int getHealth() const;
 };

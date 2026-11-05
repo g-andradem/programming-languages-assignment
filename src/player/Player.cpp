@@ -32,9 +32,16 @@ Player::Player(Score& score):
     sprite.setScale({3.f, 3.f});
 }
 
-void Player::update(float deltaTime){
-    // float speed = 1.f; // pixels por segundo
-    // float deltaTime = clock.restart().asSeconds();
+void Player::update(float deltaTime)
+{
+    updateStun(deltaTime);
+
+    if (isStunned)
+    {
+        currentAnimation = PlayerAnimation::Front;
+        sprite.setTexture(frontTexture);
+        return;
+    }
 
     bool isMoving = false;
 
@@ -53,13 +60,11 @@ void Player::update(float deltaTime){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         currentAnimation = PlayerAnimation::Front;
-        //isMoving = true;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         currentAnimation = PlayerAnimation::Front;
-        //isMoving = true;
     }
 
     if (isMoving)
@@ -74,27 +79,30 @@ void Player::update(float deltaTime){
     }
     else
     {
-        currentAnimation = PlayerAnimation::Front;   
+        currentAnimation = PlayerAnimation::Front;
         scoreTimer.reset();
     }
 
     updateAnimation(deltaTime, currentAnimation);
 }
 
-void Player::draw(sf::RenderWindow& window){
+void Player::draw(sf::RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-void Player::setPosition(float WIDHT, float HEIGHT){
+void Player::setPosition(float WIDHT, float HEIGHT)
+{
     sprite.setPosition({WIDHT, HEIGHT});
 }
 
-sf::Vector2f Player::getPosition(){
+sf::Vector2f Player::getPosition()
+{
     return sprite.getPosition();
 }
 
-void Player::updateAnimation(float deltaTime, PlayerAnimation animation){
-
+void Player::updateAnimation(float deltaTime, PlayerAnimation animation)
+{
     switch (animation)
     {
         case PlayerAnimation::Front:
@@ -110,10 +118,62 @@ void Player::updateAnimation(float deltaTime, PlayerAnimation animation){
     }
 }
 
-void Player::setOrigin(sf::Vector2f origin){
+PlayerAnimation Player::getCurrentAnimation() const
+{
+    return currentAnimation;
+}
+
+void Player::setOrigin(sf::Vector2f origin)
+{
     sprite.setOrigin(origin);
 }
 
-sf::FloatRect Player::getLocalBounds(){
+sf::FloatRect Player::getLocalBounds()
+{
     return sprite.getLocalBounds();
+}
+
+void Player::takeDamage()
+{
+    if (health <= 0 || isStunned)
+        return;
+
+    health--;
+    health--;
+    health--;
+
+    if (health > 0)
+    {
+        isStunned = true;
+        stunTimer = stunDuration;
+
+        currentAnimation = PlayerAnimation::Front;
+        sprite.setTexture(frontTexture);
+
+        scoreTimer.reset();
+    }
+}
+
+void Player::updateStun(float deltaTime)
+{
+    if (!isStunned)
+        return;
+
+    stunTimer -= deltaTime;
+
+    if (stunTimer <= 0.f)
+    {
+        stunTimer = 0.f;
+        isStunned = false;
+    }
+}
+
+int Player::getHealth() const
+{
+    return health;
+}
+
+bool Player::getIsStunned() const
+{
+    return isStunned;
 }

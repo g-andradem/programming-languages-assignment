@@ -2,7 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-enum class MenuAction {
+enum class MenuAction
+{
     None,
     Play,
     Score,
@@ -10,30 +11,31 @@ enum class MenuAction {
     Exit
 };
 
-class MainMenu {
-private:
-    sf::Font font;
+class MainMenu
+{
+    private:
+        sf::Font font;
 
-    sf::Text title;
-    sf::Text subTitle;
-    sf::Text playButton;
-    sf::Text scoreButton;
-    sf::Text exitButton;
+        sf::Text title;
+        sf::Text subTitle;
+        sf::Text playButton;
+        sf::Text scoreButton;
+        sf::Text exitButton;
 
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
+        sf::Texture backgroundTexture;
+        sf::Sprite backgroundSprite;
 
-    int selectedButton = 0;
+        int selectedButton = 0;
 
-public:
-    MainMenu();
+    public:
+        MainMenu();
 
-    MenuAction handleEvent(const sf::Event& event);
-    void update(float deltaTime);
-    void draw(sf::RenderWindow& window);
-    void centerText(sf::Text& text, float x);
+        MenuAction handleEvent(const sf::Event& event);
+        void update(float deltaTime);
+        void draw(sf::RenderWindow& window);
+        void centerText(sf::Text& text, float x);
 
-    void updateSelection();
+        void updateSelection();
 
-    int getSelectedButton() const;
+        int getSelectedButton() const;
 };

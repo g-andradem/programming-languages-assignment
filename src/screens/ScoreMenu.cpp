@@ -114,10 +114,10 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         // BOTÃO EDITAR
         // =========================
 
-        sf::RectangleShape editButton({100.f, 40.f});
+        sf::RectangleShape editButton({80.f, 40.f});
 
         editButton.setPosition({
-            580.f,
+            520.f,
             y - 25.f
         });
 
@@ -141,8 +141,8 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         editText.setFillColor(sf::Color::Black);
 
         editText.setPosition({
-            595.f,
-            y - 20.f
+            535.f,
+            y - 15.f
         });
 
         window.draw(editText);
@@ -152,10 +152,10 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         // BOTÃO DELETAR
         // =========================
 
-        sf::RectangleShape deleteButton({120.f, 40.f});
+        sf::RectangleShape deleteButton({80.f, 40.f});
 
         deleteButton.setPosition({
-            690.f,
+            610.f,
             y - 25.f
         });
 
@@ -179,8 +179,8 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         deleteText.setFillColor(sf::Color::Black);
 
         deleteText.setPosition({
-            705.f,
-            y - 20.f
+            620.f,
+            y - 15.f
         });
 
         window.draw(deleteText);

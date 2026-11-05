@@ -3,15 +3,9 @@
 #include "Tile.hpp"
 #include "Wall.hpp"
 #include "Object.hpp"
-//#include "../student/Student.hpp"
 
 class Map
 {
-    public:
-        Map();
-
-        void draw(sf::RenderWindow& window);
-
     private:
         std::vector<std::vector<int>> map;
 
@@ -38,4 +32,8 @@ class Map
 
         // Tirar estudante daqui depois
         //std::vector<Student> students;
+    public:
+        Map();
+
+        void draw(sf::RenderWindow& window);
 };

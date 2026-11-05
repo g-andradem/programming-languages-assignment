@@ -29,5 +29,3 @@ void Wall::setRotation(float angle){
 sf::FloatRect Wall::getLocalBounds(){
     return sprite.getLocalBounds();
 }
-
-//sprite.setRotation(sf::degrees(90.f));

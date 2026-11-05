@@ -1,12 +1,30 @@
 #include <SFML/Graphics.hpp>
 
-enum class TeacherAnimation {
+enum class TeacherAnimation
+{
     Front,
     Diagonal,
     Side
 };
 
-class Teacher {
+class Teacher
+{
+    private:
+        sf::Texture frontTexture;
+        sf::Texture diagonalTexture;
+        sf::Texture sideTexture;
+
+        sf::Sprite sprite;
+
+        float animationTimer = 0.0f;
+        float animationInterval = 2.0f; // segundos entre sprites
+
+        int animationFrame = 0; // 0 = frente, 1 = diagonal, 2 = lado
+        int animationDirection = 1; // 1 = avançar, -1 = voltar
+
+        TeacherAnimation currentAnimation = TeacherAnimation::Front;
+
+        void updateAnimation(float deltaTime);
     public:
         Teacher();
 
@@ -23,21 +41,4 @@ class Teacher {
         sf::FloatRect getLocalBounds();
 
         void setAnimation(TeacherAnimation animation);
-
-    private:
-        sf::Texture frontTexture;
-        sf::Texture diagonalTexture;
-        sf::Texture sideTexture;
-
-        sf::Sprite sprite;
-
-        float animationTimer = 0.0f;
-        float animationInterval = 0.5f; // segundos entre sprites
-
-        int animationFrame = 0; // 0 = frente, 1 = diagonal, 2 = lado
-        int animationDirection = 1; // 1 = avançar, -1 = voltar
-
-        TeacherAnimation currentAnimation = TeacherAnimation::Front;
-
-        void updateAnimation(float deltaTime);
 };

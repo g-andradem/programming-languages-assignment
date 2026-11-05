@@ -5,7 +5,11 @@
 
 class Score;
 
-class ScoreUI {
+class ScoreUI
+{
+    private:
+        sf::Font font;
+        sf::Text text;
     public:
         ScoreUI();
 
@@ -13,7 +17,4 @@ class ScoreUI {
         void draw(sf::RenderWindow& window);
 
         void setPosition(float x, float y);
-    private:
-        sf::Font font;
-        sf::Text text;
 };

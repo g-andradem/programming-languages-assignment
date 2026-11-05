@@ -2,17 +2,16 @@
 
 class Score
 {
-public:
-    Score();
+    private:
+        int points;
+    public:
+        Score();
 
-    void update(float deltaTime);
+        void update(float deltaTime);
 
-    void addPoints(int amount);
-    void removePoints(int amount);
+        void addPoints(int amount);
+        void removePoints(int amount);
 
-    int getPoints() const;
-    void reset();
-
-private:
-    int points;
+        int getPoints() const;
+        void reset();
 };

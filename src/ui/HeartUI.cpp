@@ -21,7 +21,7 @@ HeartUI::HeartUI()
         );
         hearts[i].setScale({4.f, 4.f});
         hearts[i].setPosition({
-            (6.55 * 40.f) + i*90.f, 
+            (6.55f * 40.f) + i * 90.f,
             0.2 * 40.f
         });
     }

@@ -1,3 +1,2 @@
-Ana;320
-Pedro;180
-Joao;100
+GUilherme a;320
+Andre D;180

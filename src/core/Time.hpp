@@ -2,17 +2,16 @@
 
 class Time
 {
-public:
-    Time();
+    private:
+        float elapsedTime;
 
-    void update(float deltaTime);
+        int minutes;
+        int seconds;
+    public:
+        Time();
 
-    int getMinutes() const;
-    int getSeconds() const;
+        void update(float deltaTime);
 
-private:
-    float elapsedTime;
-
-    int minutes;
-    int seconds;
+        int getMinutes() const;
+        int getSeconds() const;
 };

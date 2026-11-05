@@ -103,7 +103,6 @@ int main()
             }
         }
 
-
         sf::View view(sf::FloatRect(
             {0.f, 0.f},
             {static_cast<float>(GAME_WIDTH), static_cast<float>(GAME_HEIGHT)}
@@ -132,7 +131,7 @@ int main()
         else if (state == GameState::Paused)
         {
             // Atualiza o Pause
-            // scoreMenu.update(deltaTime);
+            // pauseScreen.update(deltaTime);
         }
 
         // Limpa a Tela

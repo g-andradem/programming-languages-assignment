@@ -4,17 +4,16 @@
 
 class HeartUI
 {
-public:
-    HeartUI();
+    private:
+        sf::Texture heartTexture;
+        sf::Sprite hearts[3];
 
-    void setLives(int lives);
-    void loseLife();
+        int lives;
+    public:
+        HeartUI();
 
-    void draw(sf::RenderWindow& window);
+        void setLives(int lives);
+        void loseLife();
 
-private:
-    sf::Texture heartTexture;
-    sf::Sprite hearts[3];
-
-    int lives;
+        void draw(sf::RenderWindow& window);
 };

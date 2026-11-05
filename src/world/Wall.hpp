@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 
 class Wall
-    {
+{
+    private:
+        sf::Sprite sprite;
     public:
         Wall(const sf::Texture& texture);
 
@@ -12,7 +14,4 @@ class Wall
         sf::FloatRect getLocalBounds();
 
         void draw(sf::RenderWindow& window);
-
-    private:
-        sf::Sprite sprite;
 };

@@ -1,7 +1,10 @@
 #include <SFML/Graphics.hpp>
 
 class Tile
-    {
+{
+    private:
+        sf::Sprite sprite;
+        bool walkable;
     public:
         Tile(const sf::Texture& texture, bool walkable);
 
@@ -10,8 +13,4 @@ class Tile
         void draw(sf::RenderWindow& window);
 
         bool isWalkable() const;
-
-    private:
-        sf::Sprite sprite;
-        bool walkable;
 };

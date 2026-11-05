@@ -6,18 +6,18 @@
 
 class Timer
 {
-private:
-    float elapsedTime;
-    float duration;
+    private:
+        float elapsedTime;
+        float duration;
 
-public:
-    Timer(float duration);
+    public:
+        Timer(float duration);
 
-    void update(float deltaTime);
+        void update(float deltaTime);
 
-    bool isFinished() const;
+        bool isFinished() const;
 
-    void reset();
+        void reset();
 
-    float getElapsedTime() const;
+        float getElapsedTime() const;
 };

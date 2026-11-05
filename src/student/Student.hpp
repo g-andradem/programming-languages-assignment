@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 
 class Student
-    {
+{
+    private:
+        sf::Sprite sprite;
     public:
         Student(const sf::Texture& texture);
 
@@ -13,7 +15,4 @@ class Student
         void draw(sf::RenderWindow& window);
 
         sf::FloatRect getLocalBounds();
-
-    private:
-        sf::Sprite sprite;
 };

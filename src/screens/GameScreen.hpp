@@ -12,26 +12,22 @@
 #include "../teacher/Teacher.hpp"
 #include "../world/Map.hpp"
 
-class GameScreen {
-private:
-    Map map;
-    Teacher teacher;
-    HeartUI heartUI;
-    Time time;
-    TimerUI timerUI;
-    Score score;
-    ScoreUI scoreUI;
-    Player player;
+class GameScreen
+{
+    private:
+        Map map;
+        Teacher teacher;
+        HeartUI heartUI;
+        Time time;
+        TimerUI timerUI;
+        Score score;
+        ScoreUI scoreUI;
+        Player player;
 
-public:
-    GameScreen();
+    public:
+        GameScreen();
 
-    int handleEvent(const sf::Event& event);
-    void update(float deltaTime);
-    void draw(sf::RenderWindow& window);
-    //void centerText(sf::Text& text, float x);
-
-    //void updateSelection();
-
-    //int getSelectedButton() const;
+        int handleEvent(const sf::Event& event);
+        void update(float deltaTime);
+        void draw(sf::RenderWindow& window);
 };

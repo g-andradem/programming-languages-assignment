@@ -11,25 +11,24 @@ enum class PauseAction
 
 class PauseScreen
 {
-public:
-    PauseScreen();
+    private:
+        sf::Font font;
 
-    PauseAction handleEvent(const sf::Event& event);
+        sf::Text title;
+        sf::Text resumeButton;
+        sf::Text exitButton;
 
-    void update(float deltaTime);
-    void draw(sf::RenderWindow& window);
+        sf::RectangleShape overlay;
 
-private:
-    sf::Font font;
+        int selectedButton = 0;
 
-    sf::Text title;
-    sf::Text resumeButton;
-    sf::Text exitButton;
+        void updateSelection();
+        void centerText(sf::Text& text, float x);
+    public:
+        PauseScreen();
 
-    sf::RectangleShape overlay;
+        PauseAction handleEvent(const sf::Event& event);
 
-    int selectedButton = 0;
-
-    void updateSelection();
-    void centerText(sf::Text& text, float x);
+        void update(float deltaTime);
+        void draw(sf::RenderWindow& window);
 };

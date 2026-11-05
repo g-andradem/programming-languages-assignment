@@ -66,9 +66,9 @@ PauseAction PauseScreen::handleEvent(const sf::Event& event)
 
         else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
         {
-            if (selectedButton == 0)
+            if (selectedButton == 0){
                 return PauseAction::Play;
-
+            }
             if (selectedButton == 1)
                 return PauseAction::Exit;
         }

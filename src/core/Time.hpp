@@ -14,4 +14,6 @@ class Time
 
         int getMinutes() const;
         int getSeconds() const;
+
+        void reset();
 };

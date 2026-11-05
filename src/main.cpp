@@ -87,7 +87,7 @@ int main()
 
                 if (action == PauseAction::Play)
                 {
-                    state = previousState;
+                    state = GameState::Playing;
                 }
                 else if (action == PauseAction::Exit)
                 {
@@ -96,8 +96,18 @@ int main()
             }
             else if (state == GameState::GameOver)
             {
-                // Futuramente:
-                // GameOverAction action = gameOverScreen.handleEvent(*event);
+                GameOverAction action = gameOverScreen.handleEvent(*event);
+
+                if (action == GameOverAction::Menu)
+                {
+                    gameScreen.reset();
+                    state = GameState::MainMenu;
+                }
+                else if (action == GameOverAction::PlayAgain)
+                {
+                    gameScreen.reset();
+                    state = GameState::Playing;
+                }
             }
             else if (state == GameState::Score)
             {

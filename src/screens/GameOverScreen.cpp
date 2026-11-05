@@ -19,11 +19,11 @@ GameOverScreen::GameOverScreen():
 
     restartText.setString("Pressione ENTER para jogar novamente");
     restartText.setCharacterSize(25);
-    restartText.setPosition({350.f, 350.f});
+    restartText.setPosition({220.f, 350.f});
 
     menuText.setString("Pressione ESC para voltar ao menu");
     menuText.setCharacterSize(25);
-    menuText.setPosition({350.f, 400.f});
+    menuText.setPosition({220.f, 400.f});
 }
 
 void GameOverScreen::draw(sf::RenderWindow& window)
@@ -31,4 +31,17 @@ void GameOverScreen::draw(sf::RenderWindow& window)
     window.draw(gameOverText);
     window.draw(restartText);
     window.draw(menuText);
+}
+
+GameOverAction GameOverScreen::handleEvent(const sf::Event& event)
+{
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
+    {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
+            return GameOverAction::PlayAgain;
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+            return GameOverAction::Menu;
+    }
+
+    return GameOverAction::None;
 }

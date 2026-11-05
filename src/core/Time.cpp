@@ -1,9 +1,9 @@
 #include "Time.hpp"
 
-Time::Time()
-    : elapsedTime(0.f),
-      minutes(2),
-      seconds(0)
+Time::Time(): 
+    elapsedTime(0.f),
+    minutes(2),
+    seconds(0)
 {
 }
 
@@ -28,6 +28,13 @@ int Time::getMinutes() const{
     return minutes;
 }
 
-int Time::getSeconds() const{
+int Time::getSeconds() const
+{
     return seconds;
+}
+
+void Time::reset()
+{
+    minutes = 2;
+    seconds = 0;
 }

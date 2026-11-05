@@ -52,4 +52,6 @@ class Player {
 
         bool getIsStunned() const;
         int getHealth() const;
+
+        void reset();
 };

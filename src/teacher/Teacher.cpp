@@ -122,3 +122,8 @@ void Teacher::decreaseAnimationInterval()
 {
     animationInterval -= 0.5f;
 }
+
+void Teacher::reset()
+{
+    animationInterval = 2.2f;
+}

@@ -48,5 +48,7 @@ class GameScreen
         void draw(sf::RenderWindow& window);
 
         void setAction(GameAction action);
-        GameAction getAction() const;
+        GameAction getAction();
+
+        void reset();
 };

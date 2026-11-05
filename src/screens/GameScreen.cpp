@@ -106,7 +106,40 @@ void GameScreen::setAction(GameAction action)
     currentAction = action;
 }
 
-GameAction GameScreen::getAction() const
+GameAction GameScreen::getAction()
 {
-    return currentAction;
+    GameAction action = currentAction;
+
+    currentAction = GameAction::None;
+
+    return action;
+}
+
+void GameScreen::reset()
+{
+    // Reseta o estado do jogador
+    player.reset();
+
+    // Reseta o professor
+    teacher.reset();
+
+    // Reseta o tempo
+    time.reset();
+
+    // Reseta a pontuação
+    score.reset();
+
+    // Reseta o controle de dano
+    damageApplied = false;
+
+    // Reseta a ação atual
+    currentAction = GameAction::None;
+
+    // Reseta a animação do professor
+    teacher.setAnimation(TeacherAnimation::Front);
+
+    // Atualiza a interface
+    heartUI.setLives(player.getHealth());
+    scoreUI.update(score);
+    timerUI.update(time);
 }

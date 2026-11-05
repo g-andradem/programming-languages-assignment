@@ -2,6 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 
+enum class GameOverAction
+{
+    None,
+    PlayAgain,
+    Menu
+};
+
 class GameOverScreen
 {
     private:
@@ -14,5 +21,5 @@ class GameOverScreen
         GameOverScreen();
 
         void draw(sf::RenderWindow& window);
-        int handleEvent(const sf::Event& event);
+        GameOverAction handleEvent(const sf::Event& event);
 };

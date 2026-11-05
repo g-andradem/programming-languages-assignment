@@ -44,4 +44,6 @@ class Teacher
         TeacherAnimation getCurrentAnimation() const;
 
         void decreaseAnimationInterval();
+
+        void reset();
 };

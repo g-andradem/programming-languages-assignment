@@ -177,3 +177,9 @@ bool Player::getIsStunned() const
 {
     return isStunned;
 }
+
+void Player::reset()
+{
+    health = 3;
+    isStunned = false;
+}

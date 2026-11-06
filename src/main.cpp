@@ -89,6 +89,11 @@ int main()
                 {
                     state = GameState::Playing;
                 }
+                else if (action == PauseAction::Menu)
+                {
+                    gameScreen.reset();
+                    state = GameState::MainMenu;
+                }
                 else if (action == PauseAction::Exit)
                 {
                     window.close();

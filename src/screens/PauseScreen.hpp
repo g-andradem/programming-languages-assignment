@@ -6,6 +6,7 @@ enum class PauseAction
 {
     None,
     Play,
+    Menu,
     Exit
 };
 
@@ -16,6 +17,7 @@ class PauseScreen
 
         sf::Text title;
         sf::Text resumeButton;
+        sf::Text menuButton;
         sf::Text exitButton;
 
         sf::RectangleShape overlay;

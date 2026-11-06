@@ -4,6 +4,7 @@
 PauseScreen::PauseScreen():
     title(font),
     resumeButton(font),
+    menuButton(font),
     exitButton(font)
 {
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
@@ -31,6 +32,7 @@ PauseScreen::PauseScreen():
 
     // Botões
     resumeButton.setString("Continuar");
+    menuButton.setString("Menu");
     exitButton.setString("Sair");
 
     updateSelection();
@@ -49,7 +51,7 @@ PauseAction PauseScreen::handleEvent(const sf::Event& event)
             selectedButton--;
 
             if (selectedButton < 0)
-                selectedButton = 1;
+                selectedButton = 2;
 
             updateSelection();
         }
@@ -58,18 +60,20 @@ PauseAction PauseScreen::handleEvent(const sf::Event& event)
         {
             selectedButton++;
 
-            if (selectedButton > 1)
+            if (selectedButton > 2)
                 selectedButton = 0;
 
             updateSelection();
         }
+        
 
         else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
         {
-            if (selectedButton == 0){
+            if (selectedButton == 0)
                 return PauseAction::Play;
-            }
             if (selectedButton == 1)
+                return PauseAction::Menu;
+            if (selectedButton == 2)
                 return PauseAction::Exit;
         }
     }
@@ -89,25 +93,35 @@ void PauseScreen::draw(sf::RenderWindow& window)
     window.draw(title);
 
     window.draw(resumeButton);
+    window.draw(menuButton);
     window.draw(exitButton);
 }
 
 void PauseScreen::updateSelection()
 {
     resumeButton.setCharacterSize(52);
+    menuButton.setCharacterSize(52);
     exitButton.setCharacterSize(52);
 
     if (selectedButton == 0)
         resumeButton.setCharacterSize(70);
 
     else if (selectedButton == 1)
+        menuButton.setCharacterSize(70);
+
+    else if (selectedButton == 2)
         exitButton.setCharacterSize(70);
 
     centerText(resumeButton, 416.f);
+    centerText(menuButton, 416.f);
     centerText(exitButton, 416.f);
 
     resumeButton.setPosition({
         resumeButton.getPosition().x, 340.f
+    });
+
+    menuButton.setPosition({
+        menuButton.getPosition().x, 420.f
     });
 
     exitButton.setPosition({

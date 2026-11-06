@@ -16,7 +16,6 @@ MainMenu::MainMenu():
     backgroundSprite.setTextureRect(
         sf::IntRect({0, 0}, {832, 832})
     );
-    // backgroundSprite.setScale({832.f / textureSize.x, 624.f / textureSize.y});
     
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte!\n";

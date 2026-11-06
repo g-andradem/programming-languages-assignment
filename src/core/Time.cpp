@@ -2,8 +2,8 @@
 
 Time::Time(): 
     elapsedTime(0.f),
-    minutes(2),
-    seconds(0)
+    minutes(0),
+    seconds(2)
 {
 }
 

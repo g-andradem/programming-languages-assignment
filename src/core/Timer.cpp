@@ -1,8 +1,8 @@
 #include "Timer.hpp"
 
-Timer::Timer(float duration)
-    : elapsedTime(0.f),
-      duration(duration)
+Timer::Timer(float duration): 
+    elapsedTime(0.f),
+    duration(duration)
 {}
 
 void Timer::update(float deltaTime)

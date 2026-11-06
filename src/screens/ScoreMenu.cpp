@@ -14,7 +14,7 @@ ScoreMenu::ScoreMenu():
     );
 
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
-        // Tratar erro caso a fonte não seja encontrada
+        std::cerr << "Erro ao carregar fonte!\n";
     }
     scores = ScoreFile::load();
 
@@ -49,11 +49,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
         window.draw(title);
 
-        sf::Text nameText(
-            font,
-            editingName + "_",
-            35
-        );
+        sf::Text nameText(font, editingName + "_", 35);
 
         nameText.setOrigin(
             nameText.getLocalBounds().getCenter()
@@ -63,11 +59,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
         window.draw(nameText);
 
-        sf::Text instruction(
-            font,
-            "ENTER = salvar    ESC = cancelar",
-            20
-        );
+        sf::Text instruction(font, "ENTER = salvar    ESC = cancelar", 20);
 
         instruction.setOrigin(
             instruction.getLocalBounds().getCenter()
@@ -79,6 +71,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
         return;
     }
+
     sf::Text title(font, "PLACARES", 50);
 
     title.setOrigin(title.getLocalBounds().getCenter());
@@ -90,10 +83,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
     for (std::size_t i = 0; i < scores.size(); ++i)
     {
-        // =========================
-        // SCORE
-        // =========================
-
+        // Pontos
         std::string text =
             std::to_string(i + 1) + " " +
             scores[i].playerName + " " +
@@ -106,14 +96,10 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         );
 
         scoreText.setPosition({330.f, y});
-
         window.draw(scoreText);
 
 
-        // =========================
-        // BOTÃO EDITAR
-        // =========================
-
+        // Botao de Editar
         sf::RectangleShape editButton({80.f, 40.f});
 
         editButton.setPosition({
@@ -121,8 +107,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
             y - 25.f
         });
 
-        if (i == selectedIndex &&
-            selectedButton == 0)
+        if (i == selectedIndex && selectedButton == 0)
         {
             editButton.setFillColor(sf::Color::Yellow);
         }
@@ -134,8 +119,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(editButton);
 
 
-        // Texto EDITAR
-
+        // Texto de Editar
         sf::Text editText(font, "Editar", 20);
 
         editText.setFillColor(sf::Color::Black);
@@ -148,10 +132,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(editText);
 
 
-        // =========================
-        // BOTÃO DELETAR
-        // =========================
-
+        // Botao de Deletar
         sf::RectangleShape deleteButton({80.f, 40.f});
 
         deleteButton.setPosition({
@@ -159,8 +140,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
             y - 25.f
         });
 
-        if (i == selectedIndex &&
-            selectedButton == 1)
+        if (i == selectedIndex && selectedButton == 1)
         {
             deleteButton.setFillColor(sf::Color::Red);
         }
@@ -172,8 +152,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(deleteButton);
 
 
-        // Texto DELETAR
-
+        // Texto Deletar
         sf::Text deleteText(font, "Deletar", 20);
 
         deleteText.setFillColor(sf::Color::Black);
@@ -185,7 +164,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
         window.draw(deleteText);
 
-
         y += 50.f;
     }
 }
@@ -196,12 +174,10 @@ void ScoreMenu::deleteScore(std::size_t index)
         return;
 
     scores.erase(scores.begin() + index);
-
     ScoreFile::save(scores);
-
     sortScores();
 
-    // Corrige a seleção
+
     if (scores.empty())
     {
         selectedIndex = 0;
@@ -220,7 +196,6 @@ void ScoreMenu::editScore(std::size_t index)
     editing = true;
     editingIndex = index;
 
-    // Começa com o nome atual
     editingName = scores[index].playerName;
 }
 
@@ -228,10 +203,7 @@ int ScoreMenu::handleEvent(const sf::Event& event)
 {
     if (editing)
     {
-        // =========================
-        // DIGITANDO O NOME
-        // =========================
-
+        // Digitar o Nome
         if (const auto* textEntered =
             event.getIf<sf::Event::TextEntered>())
         {
@@ -257,21 +229,15 @@ int ScoreMenu::handleEvent(const sf::Event& event)
             }
         }
 
-        // =========================
-        // TECLAS
-        // =========================
 
-        if (const auto* keyPressed =
-            event.getIf<sf::Event::KeyPressed>())
+        if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
         {
             // ENTER = salvar
-            if (keyPressed->scancode ==
-                sf::Keyboard::Scancode::Enter)
+            if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
             {
                 if (!editingName.empty())
                 {
-                    scores[editingIndex].playerName =
-                        editingName;
+                    scores[editingIndex].playerName = editingName;
 
                     ScoreFile::save(scores);
 
@@ -291,8 +257,7 @@ int ScoreMenu::handleEvent(const sf::Event& event)
             }
 
             // ESC = cancelar
-            else if (keyPressed->scancode ==
-                     sf::Keyboard::Scancode::Escape)
+            else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
             {
                 editing = false;
             }
@@ -302,46 +267,41 @@ int ScoreMenu::handleEvent(const sf::Event& event)
     }
 
 
-    // =====================================
-    // MENU NORMAL
-    // =====================================
-
+    // Menu de Pontuacoes
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
         // W -> score anterior
         if (keyPressed->scancode == sf::Keyboard::Scancode::W)
         {
-            if (selectedIndex > 0) {selectedIndex--;}
+            if (selectedIndex > 0)
+            {
+                selectedIndex--;
+            }
         }
 
         // S -> próximo score
-        else if (keyPressed->scancode ==
-                 sf::Keyboard::Scancode::S)
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
         {
-            if (!scores.empty() &&
-                selectedIndex < scores.size() - 1)
+            if (!scores.empty() && selectedIndex < scores.size() - 1)
             {
                 selectedIndex++;
             }
         }
 
         // A -> Editar
-        else if (keyPressed->scancode ==
-                 sf::Keyboard::Scancode::A)
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
         {
             selectedButton = 0;
         }
 
         // D -> Deletar
-        else if (keyPressed->scancode ==
-                 sf::Keyboard::Scancode::D)
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
         {
             selectedButton = 1;
         }
 
         // ENTER
-        else if (keyPressed->scancode ==
-                 sf::Keyboard::Scancode::Enter)
+        else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
         {
             if (scores.empty())
                 return 0;

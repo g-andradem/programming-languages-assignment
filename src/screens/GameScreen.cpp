@@ -76,6 +76,12 @@ void GameScreen::update(float deltaTime)
     teacher.update(deltaTime);
     time.update(deltaTime);
 
+    if (time.getMinutes() == 0 && time.getSeconds() == 0)
+    {
+        setAction(GameAction::Finish);
+        return;
+    }
+
     timerUI.update(time);
     scoreUI.update(score);
     
@@ -113,6 +119,11 @@ GameAction GameScreen::getAction()
     currentAction = GameAction::None;
 
     return action;
+}
+
+int GameScreen::getScore()
+{
+    return score.getPoints();
 }
 
 void GameScreen::reset()

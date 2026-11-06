@@ -5,15 +5,19 @@
 #include "screens/GameScreen.hpp"
 #include "screens/PauseScreen.hpp"
 #include "screens/GameOverScreen.hpp"
+#include "screens/NameInputScreen.hpp"
+#include "screens/ResultsScreen.hpp"
 
 const unsigned int GAME_WIDTH = 832;
 const unsigned int GAME_HEIGHT = 832;
 
 enum class GameState {
     MainMenu,
+    NameInput,
     Playing,
     Score,
     Paused,
+    Finish,
     GameOver
 };
 
@@ -33,6 +37,9 @@ int main()
 
     // Game Screen
     GameScreen gameScreen;
+
+    // NameInput Screen
+    NameInputScreen nameInputScreen;
 
     // Score Menu
     ScoreMenu scoreMenu;
@@ -65,7 +72,8 @@ int main()
                 if (action == MenuAction::Play)
                 {
                     previousState = GameState::MainMenu;
-                    state = GameState::Playing;
+                    nameInputScreen.reset();
+                    state = GameState::NameInput;
                 }
                 else if (action == MenuAction::Score)
                 {
@@ -75,6 +83,15 @@ int main()
                 else if (action == MenuAction::Exit)
                 {
                     window.close();
+                }
+            }
+            else if (state == GameState::NameInput)
+            {
+                NameInputAction action = nameInputScreen.handleEvent(*event);
+
+                if (action == NameInputAction::Play)
+                {
+                    state = GameState::Playing;
                 }
             }
             else if (state == GameState::Playing)
@@ -154,16 +171,20 @@ int main()
                 previousState = GameState::Playing;
                 state = GameState::Paused;
             }
+            else if (action == GameAction::Finish)
+            {
+                state = GameState::Finish;
+            }
         }
         else if (state == GameState::Score)
         {
             // Atualiza a Pontuação
             // scoreMenu.update(deltaTime);
         }
-        else if (state == GameState::Paused)
+        else if (state == GameState::Finish)
         {
-            // Atualiza o Pause
-            // pauseScreen.update(deltaTime);
+            // Atualiza o Resultado
+            // scoreMenu.update(deltaTime);
         }
 
         // Limpa a Tela
@@ -173,6 +194,11 @@ int main()
         {
             // Desenha o menu
             mainMenu.draw(window);
+        }
+        else if (state == GameState::NameInput)
+        {
+            // Desenha o Name Input
+            nameInputScreen.draw(window);
         }
         else if (state == GameState::Playing)
         {
@@ -192,7 +218,17 @@ int main()
         }
         else if (state == GameState::GameOver)
         {
+            // Desenha o Game Over
             gameOverScreen.draw(window);
+        }
+        else if (state == GameState::Finish)
+        {
+            // Desenha o Resultado da Partida
+            ResultsScreen resultsScreen(
+                nameInputScreen.getPlayerName(), 
+                gameScreen.getScore()
+            );
+            resultsScreen.draw(window);
         }
 
         window.display();

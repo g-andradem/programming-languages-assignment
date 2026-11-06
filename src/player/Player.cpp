@@ -139,8 +139,6 @@ void Player::takeDamage()
         return;
 
     health--;
-    health--;
-    health--;
 
     if (health > 0)
     {

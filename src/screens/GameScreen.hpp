@@ -17,6 +17,7 @@ enum class GameAction
     None,
     Pause,
     GameOver,
+    Finish,
     Exit
 };
 
@@ -49,6 +50,8 @@ class GameScreen
 
         void setAction(GameAction action);
         GameAction getAction();
+
+        int getScore();
 
         void reset();
 };

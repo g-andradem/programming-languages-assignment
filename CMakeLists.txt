@@ -18,15 +18,17 @@ add_executable(MeuRPG
     src/core/Time.cpp
     src/core/Score.cpp
     src/core/Timer.cpp
+    src/score/ScoreFile.cpp
     src/ui/TimerUI.cpp
     src/ui/ScoreUI.cpp
     src/ui/HeartUI.cpp
     src/screens/MainMenu.cpp
     src/screens/GameScreen.cpp
     src/screens/GameOverScreen.cpp
+    src/screens/NameInputScreen.cpp
     src/screens/ScoreMenu.cpp
     src/screens/PauseScreen.cpp
-    src/score/ScoreFile.cpp
+    src/screens/ResultsScreen.cpp
 )
 
 target_link_libraries(MeuRPG PRIVATE

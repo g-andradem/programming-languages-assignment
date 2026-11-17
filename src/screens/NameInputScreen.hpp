@@ -24,6 +24,7 @@ class NameInputScreen
         NameInputScreen();
 
         NameInputAction handleEvent(const sf::Event& event);
+        void centerText(sf::Text& texto, float x, float y);
         void draw(sf::RenderTarget& target);
 
         const sf::String& getPlayerName() const;

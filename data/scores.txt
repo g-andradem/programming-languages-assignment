@@ -1,2 +1,7 @@
 GUilherme a;320
+guilhe;200
+andre;200
 Andre D;180
+guilhe1;200
+asad;100
+kakka;300

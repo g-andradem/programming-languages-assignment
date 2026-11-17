@@ -50,6 +50,9 @@ int main()
     // GameOver Screen
     GameOverScreen gameOverScreen;
 
+    // Results Screen
+    ResultsScreen resultsScreen;
+
     // Estado do Jogo
     GameState state = GameState::MainMenu;
 
@@ -78,6 +81,7 @@ int main()
                 else if (action == MenuAction::Score)
                 {
                     previousState = state;
+                    scoreMenu.update();
                     state = GameState::Score;
                 }
                 else if (action == MenuAction::Exit)
@@ -138,6 +142,16 @@ int main()
                     state = previousState;
                 }
             }
+            else if (state == GameState::Finish)
+            {
+                ResultsAction action = resultsScreen.handleEvent(*event);
+
+                if(action == ResultsAction::Menu)
+                {
+                    gameScreen.reset();
+                    state = GameState::MainMenu;
+                }
+            }
         }
 
         sf::View view(sf::FloatRect(
@@ -173,17 +187,22 @@ int main()
             }
             else if (action == GameAction::Finish)
             {
+                resultsScreen.setResults(
+                    nameInputScreen.getPlayerName(),
+                    gameScreen.getScore()
+                );
+
+                ScoreFile::add(
+                    nameInputScreen.getPlayerName(),
+                    gameScreen.getScore()
+                );
+
                 state = GameState::Finish;
             }
         }
         else if (state == GameState::Score)
         {
             // Atualiza a Pontuação
-            // scoreMenu.update(deltaTime);
-        }
-        else if (state == GameState::Finish)
-        {
-            // Atualiza o Resultado
             // scoreMenu.update(deltaTime);
         }
 
@@ -224,10 +243,6 @@ int main()
         else if (state == GameState::Finish)
         {
             // Desenha o Resultado da Partida
-            ResultsScreen resultsScreen(
-                nameInputScreen.getPlayerName(), 
-                gameScreen.getScore()
-            );
             resultsScreen.draw(window);
         }
 

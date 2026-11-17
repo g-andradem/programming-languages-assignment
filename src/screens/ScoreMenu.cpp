@@ -324,3 +324,19 @@ int ScoreMenu::handleEvent(const sf::Event& event)
     }
     return 0;
 }
+
+void ScoreMenu::update()
+{
+    scores = ScoreFile::load();
+
+    sortScores();
+
+    if (scores.empty())
+    {
+        selectedIndex = 0;
+    }
+    else if (selectedIndex >= scores.size())
+    {
+        selectedIndex = scores.size() - 1;
+    }
+}

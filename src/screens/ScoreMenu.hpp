@@ -43,4 +43,6 @@ class ScoreMenu
         void editScore(std::size_t index);
 
         void deleteScore(std::size_t index); 
+
+        void update();
 };

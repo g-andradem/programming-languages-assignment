@@ -8,4 +8,5 @@ class ScoreFile
     public:
         static void save(const std::vector<ScoreEntry>& scores);
         static std::vector<ScoreEntry> load();
+        static void add(const std::string& playerName, int score);
 };

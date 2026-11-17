@@ -3,7 +3,7 @@
 Time::Time(): 
     elapsedTime(0.f),
     minutes(0),
-    seconds(2)
+    seconds(5)
 {
 }
 
@@ -35,6 +35,6 @@ int Time::getSeconds() const
 
 void Time::reset()
 {
-    minutes = 2;
-    seconds = 0;
+    minutes = 0;
+    seconds = 5;
 }

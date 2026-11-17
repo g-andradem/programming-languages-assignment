@@ -47,6 +47,17 @@ std::vector<ScoreEntry> ScoreFile::load()
             });
         }
     }
-
     return scores;
+}
+
+void ScoreFile::add(const std::string& playerName, int score)
+{
+    std::vector<ScoreEntry> scores = load();
+
+    scores.push_back({
+        playerName,
+        score
+    });
+
+    save(scores);
 }

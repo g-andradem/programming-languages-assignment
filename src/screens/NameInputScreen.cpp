@@ -22,11 +22,11 @@ NameInputScreen::NameInputScreen():
     instruction.setString("Digite seu nome:");
     instruction.setCharacterSize(80);
     instruction.setFillColor(sf::Color::White);
-    instruction.setPosition({150.f, 230.f});
+    centerText(instruction, 416.f, 230.f);
 
     nameText.setCharacterSize(35);
     nameText.setFillColor(sf::Color::Yellow);
-    nameText.setPosition({350.f, 360.f});
+    centerText(nameText, 416.f, 360.f);
 }
 
 NameInputAction NameInputScreen::handleEvent(const sf::Event& event)
@@ -42,6 +42,7 @@ NameInputAction NameInputScreen::handleEvent(const sf::Event& event)
         {
             playerName += unicode;
             nameText.setString(playerName);
+            centerText(nameText, 416.f, 360.f);
         }
     }
 
@@ -56,6 +57,7 @@ NameInputAction NameInputScreen::handleEvent(const sf::Event& event)
             {
                 playerName.erase(playerName.getSize() - 1);
                 nameText.setString(playerName);
+                centerText(nameText, 416.f, 360.f);
             }
         }
 
@@ -68,6 +70,18 @@ NameInputAction NameInputScreen::handleEvent(const sf::Event& event)
     }
 
     return NameInputAction::None;
+}
+
+void NameInputScreen::centerText(sf::Text& texto, float x, float y)
+{
+    sf::FloatRect bounds = texto.getLocalBounds();
+
+    texto.setOrigin({
+        bounds.position.x + bounds.size.x / 2.f,
+        bounds.position.y + bounds.size.y / 2.f
+    });
+
+    texto.setPosition({x, y});
 }
 
 void NameInputScreen::draw(sf::RenderTarget& window)

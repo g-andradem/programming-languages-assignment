@@ -1,7 +1,5 @@
+test;500
 GUilherme a;320
+kakka;300
 guilhe;200
 andre;200
-Andre D;180
-guilhe1;200
-asad;100
-kakka;300

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 void ScoreFile::save(const std::vector<ScoreEntry>& scores)
 {
@@ -54,10 +55,16 @@ void ScoreFile::add(const std::string& playerName, int score)
 {
     std::vector<ScoreEntry> scores = load();
 
-    scores.push_back({
-        playerName,
-        score
+    scores.push_back({playerName,score});
+
+    std::sort(scores.begin(), scores.end(), [](const ScoreEntry& a, const ScoreEntry& b) {
+        return a.score > b.score;
     });
+
+    // Mantém somente os 5 melhores
+    if (scores.size() > 5) {
+        scores.resize(5);
+    }
 
     save(scores);
 }

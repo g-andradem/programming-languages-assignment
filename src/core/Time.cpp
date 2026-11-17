@@ -3,7 +3,7 @@
 Time::Time(): 
     elapsedTime(0.f),
     minutes(0),
-    seconds(5)
+    seconds(8)
 {
 }
 

@@ -164,12 +164,7 @@ int main()
         // Define o deltaTime
         float deltaTime = clock.restart().asSeconds();
 
-        if (state == GameState::MainMenu)
-        {
-            // Atualiza o Menu
-            mainMenu.update(deltaTime);
-        }
-        else if (state == GameState::Playing)
+        if (state == GameState::Playing)
         {
             // Atualiza o Jogo
             gameScreen.update(deltaTime);
@@ -199,11 +194,6 @@ int main()
 
                 state = GameState::Finish;
             }
-        }
-        else if (state == GameState::Score)
-        {
-            // Atualiza a Pontuação
-            // scoreMenu.update(deltaTime);
         }
 
         // Limpa a Tela

@@ -10,11 +10,11 @@ class ScoreUI
     private:
         sf::Font font;
         sf::Text text;
+
     public:
         ScoreUI();
 
         void update(const Score& Score);
         void draw(sf::RenderWindow& window);
-
         void setPosition(float x, float y);
 };

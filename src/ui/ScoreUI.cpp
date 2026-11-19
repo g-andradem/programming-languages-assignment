@@ -3,8 +3,9 @@
 #include <sstream>
 #include <iostream>
 
-ScoreUI::ScoreUI()
-    : text(font)
+// Construtor do UI Pontos
+ScoreUI::ScoreUI(): 
+    text(font)
 {
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte do Timer UI\n";
@@ -18,6 +19,7 @@ ScoreUI::ScoreUI()
     });
 }
 
+// Update UI Pontos
 void ScoreUI::update(const Score& score)
 {
     std::ostringstream oss;
@@ -29,11 +31,13 @@ void ScoreUI::update(const Score& score)
     text.setString(oss.str());
 }
 
+// Desenhar UI Pontos
 void ScoreUI::draw(sf::RenderWindow& window)
 {
     window.draw(text);
 }
 
+// Setter da Posição
 void ScoreUI::setPosition(float x, float y)
 {
     text.setPosition({x, y});

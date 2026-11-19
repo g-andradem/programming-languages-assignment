@@ -3,6 +3,7 @@
 
 #include <random>
 
+// Construtor do Mapa
 Map::Map(){
 
     map = {
@@ -21,53 +22,47 @@ Map::Map(){
         {4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
     };
 
-    // Sprite Hud
     if(!hud_horizontal.loadFromFile("assets/textures/hud/horizontal_superior.png")){
-        std::cerr << "Erro ao carregar sprite horizontal_superior.png\n";
+        std::cerr << "Erro ao carregar Hud horizontal_superior\n";
     }
     if(!hud_edge.loadFromFile("assets/textures/hud/esquerdo_superior.png")){
-        std::cerr << "Erro ao carregar sprite esquerdo superior.png\n";
+        std::cerr << "Erro ao carregar Hud esquerdo_superior\n";
     }
 
-    // Sprite Students
     if(!student_1.loadFromFile("assets/textures/characters/sprite_student_1.png")){
-        std::cerr << "Erro ao carregar sprite_sprite_student_1.png\n";
+        std::cerr << "Erro ao carregar student_1\n";
     }
     if(!student_2.loadFromFile("assets/textures/characters/sprite_student_2.png")){
-        std::cerr << "Erro ao carregar sprite_sprite_student_2.png\n";
+        std::cerr << "Erro ao carregar student_2\n";
     }
     if(!student_3.loadFromFile("assets/textures/characters/sprite_student_3.png")){
-        std::cerr << "Erro ao carregar sprite_sprite_student_3.png\n";
+        std::cerr << "Erro ao carregar student_3\n";
     }
     if(!student_4.loadFromFile("assets/textures/characters/sprite_student_4.png")){
-        std::cerr << "Erro ao carregar sprite_sprite_student_4.png\n";
+        std::cerr << "Erro ao carregar student_4\n";
     }
     if(!student_5.loadFromFile("assets/textures/characters/sprite_student_5.png")){
-        std::cerr << "Erro ao carregar sprite_sprite_student_5.png\n";
+        std::cerr << "Erro ao carregar student_5\n";
     }
 
-    // Sprite Floor
     if(!piso.loadFromFile("assets/textures/tiles/sprite_chao.png")){
-        std::cerr << "Erro ao carregar sprite_piso.png\n";
+        std::cerr << "Erro ao carregar piso\n";
     }
 
-    // Sprite Teacher
     if(!professor.loadFromFile("assets/textures/characters/sprite_professora.png")){
-        std::cerr << "Erro ao carregar sprite_professor.png\n";
+        std::cerr << "Erro ao carregar professor\n";
     }
 
-    // Sprite Walls
     if(!wall_vertical.loadFromFile("assets/textures/walls/sprite_wall_vertical.png")){
-        std::cerr << "Erro ao carregar sprite_wall_vertical.png\n";
+        std::cerr << "Erro ao carregar parede_vertical\n";
     }
     if(!wall_edge.loadFromFile("assets/textures/walls/sprite_wall_edge.png")){
-        std::cerr << "Erro ao carregar sprite_wall_edge.png\n";
+        std::cerr << "Erro ao carregar parede_canto\n";
     }
     if(!door.loadFromFile("assets/textures/walls/sprite_door.png")){
-        std::cerr << "Erro ao carregar sprite_door.png\n";
+        std::cerr << "Erro ao carregar porta\n";
     }
 
-    // Tiles
     for (int y = 2; y < map.size(); y++)
     {
         std::vector<Tile> row;
@@ -82,8 +77,6 @@ Map::Map(){
         tiles.push_back(row);
     }
 
-    // Hud
-    // Trade After
     for (int y = 0; y < map.size(); y++){
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 7){
@@ -134,8 +127,6 @@ Map::Map(){
         }
     }
 
-    // Objects
-    // After Transform in Students
     std::random_device rd;
     std::mt19937 gen(rd());
 
@@ -169,7 +160,6 @@ Map::Map(){
         }
     }
 
-    // Wall
     for (int y = 0; y < map.size(); y++){
         for (int x = 0; x < map[y].size(); x++){
             if(map[y][x] == 3){
@@ -240,21 +230,19 @@ Map::Map(){
     }
 }
 
+// Desenhar Mapa
 void Map::draw(sf::RenderWindow& window)
 {
-    // Chao
     for (auto& row : tiles){
         for (auto& tile : row){
             tile.draw(window);
         }
     }
 
-    // Paredes
     for (auto& wall : walls){
         wall.draw(window);
     }
 
-    // Objetos
     for (auto& object : objects){
         object.draw(window);
     }

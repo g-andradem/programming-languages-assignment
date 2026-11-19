@@ -3,8 +3,9 @@
 #include <sstream>
 #include <iostream>
 
-TimerUI::TimerUI()
-    : text(font)
+// Construtor do UI Temporizador
+TimerUI::TimerUI(): 
+    text(font)
 {
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
         std::cerr << "Erro ao carregar fonte do Timer UI\n";
@@ -18,6 +19,7 @@ TimerUI::TimerUI()
     });
 }
 
+// Update UI Temporizador
 void TimerUI::update(const Time& Time)
 {
     std::ostringstream oss;
@@ -30,6 +32,7 @@ void TimerUI::update(const Time& Time)
     text.setString(oss.str());
 }
 
+// Desenhar UI Temporizador
 void TimerUI::draw(sf::RenderWindow& window)
 {
     window.draw(text);

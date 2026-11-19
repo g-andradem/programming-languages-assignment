@@ -1,6 +1,7 @@
 #include "GameOverScreen.hpp"
 #include <iostream>
 
+// Construtor da Tela de Fim de Jogo
 GameOverScreen::GameOverScreen(): 
     font(),
     gameOverText(font),
@@ -26,6 +27,7 @@ GameOverScreen::GameOverScreen():
     menuText.setPosition({220.f, 400.f});
 }
 
+// Desenhar Tela de Fim de Jogo
 void GameOverScreen::draw(sf::RenderWindow& window)
 {
     window.draw(gameOverText);
@@ -33,6 +35,7 @@ void GameOverScreen::draw(sf::RenderWindow& window)
     window.draw(menuText);
 }
 
+// Eventos da Tela de Fim de Jogo
 GameOverAction GameOverScreen::handleEvent(const sf::Event& event)
 {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())

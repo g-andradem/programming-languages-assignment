@@ -10,6 +10,7 @@ class TimerUI
     private:
         sf::Font font;
         sf::Text text;
+        
     public:
         TimerUI();
 

@@ -1,5 +1,3 @@
-test;500
-GUilherme a;320
-kakka;300
-guilhe;200
-andre;200
+Kratos;2000
+Dayan;1000
+Faker;500

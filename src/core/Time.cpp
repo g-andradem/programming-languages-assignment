@@ -1,17 +1,18 @@
 #include "Time.hpp"
 
+// Construtor do Tempo
 Time::Time(): 
     elapsedTime(0.f),
-    minutes(0),
-    seconds(8)
+    minutes(2),
+    seconds(0)
 {
 }
 
+// Update do Tempo
 void Time::update(float deltaTime)
 {
     elapsedTime += deltaTime;
 
-    // 1 segundo real = 1 minuto no jogo
     if (elapsedTime >= 1.f){
         elapsedTime -= 1.f;
 
@@ -24,17 +25,21 @@ void Time::update(float deltaTime)
     }
 }
 
-int Time::getMinutes() const{
+// Getter dos Minutos
+int Time::getMinutes() const
+{
     return minutes;
 }
 
+// Getter dos Seconds
 int Time::getSeconds() const
 {
     return seconds;
 }
 
+// Resetar o Tempo
 void Time::reset()
 {
-    minutes = 0;
-    seconds = 5;
+    minutes = 2;
+    seconds = 0;
 }

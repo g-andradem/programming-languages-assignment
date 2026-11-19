@@ -14,10 +14,7 @@ class Timer
         Timer(float duration);
 
         void update(float deltaTime);
-
         bool isFinished() const;
-
         void reset();
-
         float getElapsedTime() const;
 };

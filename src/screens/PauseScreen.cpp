@@ -1,6 +1,7 @@
 #include "PauseScreen.hpp"
 #include <iostream>
 
+// Construtor da Tela de Pause
 PauseScreen::PauseScreen():
     title(font),
     resumeButton(font),
@@ -11,11 +12,9 @@ PauseScreen::PauseScreen():
         std::cerr << "Erro ao carregar fonte!\n";
     }
 
-    // Fundo escuro transparente
     overlay.setSize({832.f, 832.f});
     overlay.setFillColor(sf::Color(0, 0, 0, 180));
 
-    // Título
     title.setString("PAUSADO");
     title.setCharacterSize(90);
     title.setLetterSpacing(1.1f);
@@ -30,7 +29,6 @@ PauseScreen::PauseScreen():
 
     title.setPosition({416.f, 180.f});
 
-    // Botões
     resumeButton.setString("Continuar");
     menuButton.setString("Menu");
     exitButton.setString("Sair");
@@ -38,11 +36,11 @@ PauseScreen::PauseScreen():
     updateSelection();
 }
 
+// Eventos da Tela de Pause
 PauseAction PauseScreen::handleEvent(const sf::Event& event)
 {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
-        // Voltar ao jogo com ESC
         if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
             return PauseAction::Play;
 
@@ -81,22 +79,17 @@ PauseAction PauseScreen::handleEvent(const sf::Event& event)
     return PauseAction::None;
 }
 
-void PauseScreen::update(float deltaTime)
-{
-    // Atualizações do menu, se necessário.
-}
-
+// Desenhar a Tela de Pause
 void PauseScreen::draw(sf::RenderWindow& window)
 {
     window.draw(overlay);
-
     window.draw(title);
-
     window.draw(resumeButton);
     window.draw(menuButton);
     window.draw(exitButton);
 }
 
+// Atualizar Seleção de Botões
 void PauseScreen::updateSelection()
 {
     resumeButton.setCharacterSize(52);
@@ -129,6 +122,7 @@ void PauseScreen::updateSelection()
     });
 }
 
+// Centralizar Texto
 void PauseScreen::centerText(sf::Text& text, float x)
 {
     auto bounds = text.getLocalBounds();

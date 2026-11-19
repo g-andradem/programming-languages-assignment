@@ -32,26 +32,21 @@ class GameScreen
         Score score;
         ScoreUI scoreUI;
         Player player;
-
         bool damageApplied = false;
         void checkPlayerDamage();
-
         sf::Font font;
         sf::Text warningText;
         bool showWarning = false;
-
         GameAction currentAction = GameAction::None;
+
     public:
         GameScreen();
 
         void handleEvent(const sf::Event& event);
         void update(float deltaTime);
         void draw(sf::RenderWindow& window);
-
         void setAction(GameAction action);
         GameAction getAction();
-
         int getScore();
-
         void reset();
 };

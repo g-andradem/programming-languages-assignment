@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 
+// Salvar o Arquivo
 void ScoreFile::save(const std::vector<ScoreEntry>& scores)
 {
     std::ofstream file("data/scores.txt");
@@ -19,6 +20,7 @@ void ScoreFile::save(const std::vector<ScoreEntry>& scores)
     }
 }
 
+// Carregar o Arquivo
 std::vector<ScoreEntry> ScoreFile::load()
 {
     std::vector<ScoreEntry> scores;
@@ -51,6 +53,7 @@ std::vector<ScoreEntry> ScoreFile::load()
     return scores;
 }
 
+// Adicionar Nome e Pontuação ao Arquivo
 void ScoreFile::add(const std::string& playerName, int score)
 {
     std::vector<ScoreEntry> scores = load();
@@ -61,7 +64,6 @@ void ScoreFile::add(const std::string& playerName, int score)
         return a.score > b.score;
     });
 
-    // Mantém somente os 5 melhores
     if (scores.size() > 5) {
         scores.resize(5);
     }

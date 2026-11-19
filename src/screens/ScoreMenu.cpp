@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 
+// Construtor da Tela de Pontos
 ScoreMenu::ScoreMenu():
     backgroundSprite(backgroundTexture)
 {
@@ -21,12 +22,14 @@ ScoreMenu::ScoreMenu():
     sortScores();
 }
 
+// Adicionar Pontuação
 void ScoreMenu::addScore(const std::string& playerName, int score)
 {
     scores.push_back({playerName, score});
     sortScores();
 }
 
+// Ordenar Pontuações
 void ScoreMenu::sortScores()
 {
     std::sort(scores.begin(), scores.end(),
@@ -36,6 +39,7 @@ void ScoreMenu::sortScores()
         });
 }
 
+// Desenhar a Tela de Pontuações
 void ScoreMenu::draw(sf::RenderWindow& window)
 {
     window.draw(backgroundSprite);
@@ -83,7 +87,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
 
     for (std::size_t i = 0; i < scores.size(); ++i)
     {
-        // Pontos
         std::string text =
             std::to_string(i + 1) + " " +
             scores[i].playerName + " " +
@@ -99,7 +102,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(scoreText);
 
 
-        // Botao de Editar
         sf::RectangleShape editButton({80.f, 40.f});
 
         editButton.setPosition({
@@ -119,7 +121,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(editButton);
 
 
-        // Texto de Editar
         sf::Text editText(font, "Editar", 20);
 
         editText.setFillColor(sf::Color::Black);
@@ -132,7 +133,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(editText);
 
 
-        // Botao de Deletar
         sf::RectangleShape deleteButton({80.f, 40.f});
 
         deleteButton.setPosition({
@@ -152,7 +152,6 @@ void ScoreMenu::draw(sf::RenderWindow& window)
         window.draw(deleteButton);
 
 
-        // Texto Deletar
         sf::Text deleteText(font, "Deletar", 20);
 
         deleteText.setFillColor(sf::Color::Black);
@@ -168,6 +167,7 @@ void ScoreMenu::draw(sf::RenderWindow& window)
     }
 }
 
+// Deletar Pontuação
 void ScoreMenu::deleteScore(std::size_t index)
 {
     if (index >= scores.size())
@@ -188,6 +188,7 @@ void ScoreMenu::deleteScore(std::size_t index)
     }
 }
 
+// Editar Pontuação
 void ScoreMenu::editScore(std::size_t index)
 {
     if (index >= scores.size())
@@ -199,15 +200,13 @@ void ScoreMenu::editScore(std::size_t index)
     editingName = scores[index].playerName;
 }
 
+// Eventos da Tela de Pontuações
 int ScoreMenu::handleEvent(const sf::Event& event)
 {
     if (editing)
     {
-        // Digitar o Nome
-        if (const auto* textEntered =
-            event.getIf<sf::Event::TextEntered>())
+        if (const auto* textEntered = event.getIf<sf::Event::TextEntered>())
         {
-            // Backspace
             if (textEntered->unicode == 8)
             {
                 if (!editingName.empty())
@@ -216,15 +215,11 @@ int ScoreMenu::handleEvent(const sf::Event& event)
                 }
             }
 
-            // Caracteres normais
-            else if (textEntered->unicode >= 32 &&
-                     textEntered->unicode < 127)
+            else if (textEntered->unicode >= 32 && textEntered->unicode < 127)
             {
-                // Limita o tamanho do nome
                 if (editingName.size() < 20)
                 {
-                    editingName +=
-                        static_cast<char>(textEntered->unicode);
+                    editingName += static_cast<char>(textEntered->unicode);
                 }
             }
         }
@@ -232,7 +227,6 @@ int ScoreMenu::handleEvent(const sf::Event& event)
 
         if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
         {
-            // ENTER = salvar
             if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
             {
                 if (!editingName.empty())
@@ -256,7 +250,6 @@ int ScoreMenu::handleEvent(const sf::Event& event)
                 }
             }
 
-            // ESC = cancelar
             else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
             {
                 editing = false;
@@ -267,10 +260,8 @@ int ScoreMenu::handleEvent(const sf::Event& event)
     }
 
 
-    // Menu de Pontuacoes
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
-        // W -> score anterior
         if (keyPressed->scancode == sf::Keyboard::Scancode::W)
         {
             if (selectedIndex > 0)
@@ -279,7 +270,6 @@ int ScoreMenu::handleEvent(const sf::Event& event)
             }
         }
 
-        // S -> próximo score
         else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
         {
             if (!scores.empty() && selectedIndex < scores.size() - 1)
@@ -288,19 +278,16 @@ int ScoreMenu::handleEvent(const sf::Event& event)
             }
         }
 
-        // A -> Editar
         else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
         {
             selectedButton = 0;
         }
 
-        // D -> Deletar
         else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
         {
             selectedButton = 1;
         }
 
-        // ENTER
         else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
         {
             if (scores.empty())
@@ -318,13 +305,14 @@ int ScoreMenu::handleEvent(const sf::Event& event)
 
         else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
         {
-            return 1; // Voltar ao menu anterior
+            return 1;
         }
 
     }
     return 0;
 }
 
+// Update Tela de Pontuações
 void ScoreMenu::update()
 {
     scores = ScoreFile::load();

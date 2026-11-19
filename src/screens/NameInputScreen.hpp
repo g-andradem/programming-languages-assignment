@@ -14,10 +14,8 @@ class NameInputScreen
         sf::Font font;
         sf::Text instruction;
         sf::Text nameText;
-
         sf::Texture backgroundTexture;
         sf::Sprite backgroundSprite;
-
         sf::String playerName;
 
     public:
@@ -26,8 +24,6 @@ class NameInputScreen
         NameInputAction handleEvent(const sf::Event& event);
         void centerText(sf::Text& texto, float x, float y);
         void draw(sf::RenderTarget& target);
-
         const sf::String& getPlayerName() const;
-
         void reset();
 };

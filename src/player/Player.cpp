@@ -1,7 +1,7 @@
 #include "Player.hpp"
-
 #include <iostream>
 
+// Construtor do Jogador
 Player::Player(Score& score): 
     texture(),
     sprite(texture),
@@ -9,20 +9,18 @@ Player::Player(Score& score):
     scoreTimer(1.f)
 {
     if (!texture.loadFromFile("assets/textures/characters/sprite_PLAYER_frente.png")){
-        // tratar erro depois
-        std::cout << "Erro ao carregar textura!\n";
+        std::cout << "Erro ao carregar player!\n";
         return;
     }
     if (!frontTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_frente.png")){
-        // tratar erro depois
         std::cerr << "Erro ao carregar sprite do player (frente)\n";
         return;
     }
-    if (!rightTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado.png")){
-        std::cerr << "Erro ao carregar sprite da professora (lado)\n";
+    if (!rightTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_direita.png")){
+        std::cerr << "Erro ao carregar sprite do player (direita)\n";
     }
-    if (!leftTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_lado_2.png")){
-        std::cerr << "Erro ao carregar sprite da professora (lado)\n";
+    if (!leftTexture.loadFromFile("assets/textures/characters/sprite_PLAYER_esquerda.png")){
+        std::cerr << "Erro ao carregar sprite do player (esquerda)\n";
     }
 
     sprite.setTextureRect(
@@ -32,6 +30,7 @@ Player::Player(Score& score):
     sprite.setScale({3.f, 3.f});
 }
 
+// Update do Jogador
 void Player::update(float deltaTime)
 {
     updateStun(deltaTime);
@@ -86,21 +85,19 @@ void Player::update(float deltaTime)
     updateAnimation(deltaTime, currentAnimation);
 }
 
+// Desenhar Jogador
 void Player::draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
 }
 
+// Colocar Jogador na Posição
 void Player::setPosition(float WIDHT, float HEIGHT)
 {
     sprite.setPosition({WIDHT, HEIGHT});
 }
 
-sf::Vector2f Player::getPosition()
-{
-    return sprite.getPosition();
-}
-
+// Atualizar Animação do Jogador
 void Player::updateAnimation(float deltaTime, PlayerAnimation animation)
 {
     switch (animation)
@@ -118,21 +115,25 @@ void Player::updateAnimation(float deltaTime, PlayerAnimation animation)
     }
 }
 
+// Getter da Animação
 PlayerAnimation Player::getCurrentAnimation() const
 {
     return currentAnimation;
 }
 
+// Setter da Origem do Jogador
 void Player::setOrigin(sf::Vector2f origin)
 {
     sprite.setOrigin(origin);
 }
 
+// Getter do Limite Local
 sf::FloatRect Player::getLocalBounds()
 {
     return sprite.getLocalBounds();
 }
 
+// Retirar vida do Jogador
 void Player::takeDamage()
 {
     if (health <= 0 || isStunned)
@@ -152,6 +153,7 @@ void Player::takeDamage()
     }
 }
 
+// Atualizar o Atordoamento
 void Player::updateStun(float deltaTime)
 {
     if (!isStunned)
@@ -166,16 +168,19 @@ void Player::updateStun(float deltaTime)
     }
 }
 
+// Getter da Vida do Jogador
 int Player::getHealth() const
 {
     return health;
 }
 
+// Getter do Atordoamento do Jogador
 bool Player::getIsStunned() const
 {
     return isStunned;
 }
 
+// Reset do Jogador
 void Player::reset()
 {
     health = 3;

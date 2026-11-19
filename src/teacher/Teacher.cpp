@@ -1,7 +1,7 @@
 #include "Teacher.hpp"
-
 #include <iostream>
 
+// Constutor da Professora
 Teacher::Teacher():
     sprite(frontTexture),
     currentAnimation(TeacherAnimation::Front)
@@ -21,41 +21,49 @@ Teacher::Teacher():
     );
 }
 
+// Setter da Origem
 void Teacher::setOrigin(sf::Vector2f origin)
 {
     sprite.setOrigin(origin);
 }
 
+// Setter da Escala
 void Teacher::setScale(float width, float height)
 {
     sprite.setScale({width, height});
 }
 
+// Setter da Posição
 void Teacher::setPosition(float x, float y)
 {
     sprite.setPosition({x, y});
 }
 
+// Update da Professora
 void Teacher::update(float deltaTime)
 {
     updateAnimation(deltaTime);
 }
 
+// Desenhar a Professora
 void Teacher::draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
 }
 
+// Getter da Posição
 sf::Vector2f Teacher::getPosition()
 {
     return sprite.getPosition();
 }
 
+// Getter dos Limites Locais
 sf::FloatRect Teacher::getLocalBounds()
 {
     return sprite.getLocalBounds();
 }
 
+// Atualizar Animação da Professora
 void Teacher::updateAnimation(float deltaTime)
 {
     animationTimer += deltaTime;
@@ -65,18 +73,14 @@ void Teacher::updateAnimation(float deltaTime)
 
     animationTimer -= animationInterval;
 
-    // Avança ou retrocede um frame
     animationFrame += animationDirection;
 
-    // Chegou ao sprite lateral: começa a voltar
     if (animationFrame == 2)
         animationDirection = -1;
 
-    // Chegou ao sprite frontal: começa a avançar novamente
     else if (animationFrame == 0)
         animationDirection = 1;
 
-    // Atualiza a imagem exibida
     switch (animationFrame)
     {
         case 0:
@@ -93,6 +97,7 @@ void Teacher::updateAnimation(float deltaTime)
     }
 }
 
+// Setter da Animação
 void Teacher::setAnimation(TeacherAnimation animation)
 {
     currentAnimation = animation;
@@ -113,16 +118,19 @@ void Teacher::setAnimation(TeacherAnimation animation)
     }
 }
 
+// Getter da Animação Atual
 TeacherAnimation Teacher::getCurrentAnimation() const
 {
     return currentAnimation;
 }
 
+// Diminuir Intervalo da Animação
 void Teacher::decreaseAnimationInterval()
 {
     animationInterval -= 0.5f;
 }
 
+// Reset da Professora
 void Teacher::reset()
 {
     animationInterval = 2.2f;

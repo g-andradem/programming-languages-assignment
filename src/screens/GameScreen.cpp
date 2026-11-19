@@ -1,12 +1,12 @@
 #include "GameScreen.hpp"
 #include <iostream>
 
+// Construtor da Tela de Jogo
 GameScreen::GameScreen(): 
     player(score),
     font(),
     warningText(font)
-{    
-    // ver dps
+{
     teacher.setAnimation(TeacherAnimation::Front);
     teacher.setOrigin(
         teacher.getLocalBounds().size / 2.f
@@ -14,7 +14,7 @@ GameScreen::GameScreen():
     teacher.setScale(4.f, 4.f);
     teacher.setPosition(
         10 * 64.f + 32.f,
-        3 * 64.f + 32.f // ALTURA
+        3 * 64.f + 32.f
     );
 
     player.setOrigin(
@@ -22,7 +22,7 @@ GameScreen::GameScreen():
     );
     player.setPosition(
         6 * 64.f + 32.f,
-        8 * 64.f + 32.f // ALTURA
+        8 * 64.f + 32.f
     );
 
     if (!font.openFromFile("assets/fonts/ROGENZ(DEMO).ttf")) {
@@ -35,6 +35,7 @@ GameScreen::GameScreen():
     warningText.setPosition({250.f, 250.f});
 }
 
+// Eventos da Tela do Jogo
 void GameScreen::handleEvent(const sf::Event& event)
 {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
@@ -45,6 +46,7 @@ void GameScreen::handleEvent(const sf::Event& event)
     }
 }
 
+// Verificar Dano ao Jogador
 void GameScreen::checkPlayerDamage()
 {
     bool teacherIsFront =
@@ -69,9 +71,9 @@ void GameScreen::checkPlayerDamage()
     }
 }
 
+// Update da Tela de Jogo
 void GameScreen::update(float deltaTime)
 {
-    // Atualiza o jogo
     player.update(deltaTime);
     teacher.update(deltaTime);
     time.update(deltaTime);
@@ -93,9 +95,9 @@ void GameScreen::update(float deltaTime)
     }
 }
 
+// Desenhar a Tela do Jogo
 void GameScreen::draw(sf::RenderWindow& window)
 {
-    // Desenha o jogo
     map.draw(window);
     teacher.draw(window);
     player.draw(window);
@@ -107,11 +109,13 @@ void GameScreen::draw(sf::RenderWindow& window)
         window.draw(warningText);
 }
 
+// Setter da Ação da Tela de Jogo
 void GameScreen::setAction(GameAction action)
 {
     currentAction = action;
 }
 
+// Getter da Ação da Tela de Jogo
 GameAction GameScreen::getAction()
 {
     GameAction action = currentAction;
@@ -121,35 +125,22 @@ GameAction GameScreen::getAction()
     return action;
 }
 
+// Getter da Pontuação Atual do Jogo
 int GameScreen::getScore()
 {
     return score.getPoints();
 }
 
+// Reset das Variaveis do Jogo
 void GameScreen::reset()
 {
-    // Reseta o estado do jogador
     player.reset();
-
-    // Reseta o professor
     teacher.reset();
-
-    // Reseta o tempo
     time.reset();
-
-    // Reseta a pontuação
     score.reset();
-
-    // Reseta o controle de dano
     damageApplied = false;
-
-    // Reseta a ação atual
     currentAction = GameAction::None;
-
-    // Reseta a animação do professor
     teacher.setAnimation(TeacherAnimation::Front);
-
-    // Atualiza a interface
     heartUI.setLives(player.getHealth());
     scoreUI.update(score);
     timerUI.update(time);

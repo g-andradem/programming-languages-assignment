@@ -1,13 +1,14 @@
 #include "ResultsScreen.hpp"
 #include <iostream>
 
-ResultsScreen::ResultsScreen()
-    : backgroundSprite(backgroundTexture),
-      title(font),
-      playerText(font),
-      scoreTitle(font),
-      scoreText(font),
-      message(font)
+// Construtor da Tela de Resultados
+ResultsScreen::ResultsScreen(): 
+    backgroundSprite(backgroundTexture),
+    title(font),
+    playerText(font),
+    scoreTitle(font),
+    scoreText(font),
+    message(font)
 {
     if (!backgroundTexture.loadFromFile("assets/textures/background.jpg")) {
         std::cerr << "Erro ao carregar imagem de fundo!\n";
@@ -40,11 +41,7 @@ ResultsScreen::ResultsScreen()
     message.setFillColor(sf::Color::White);
 }
 
-void ResultsScreen::update()
-{
-
-}
-
+// Eventos da Tela de Resultado
 ResultsAction ResultsScreen::handleEvent(const sf::Event& event)
 {
     if (event.is<sf::Event::KeyPressed>())
@@ -59,10 +56,8 @@ ResultsAction ResultsScreen::handleEvent(const sf::Event& event)
     return ResultsAction::None;
 }
 
-void ResultsScreen::setResults(
-    const sf::String& playerName,
-    int finalScore
-)
+// Setter dos Resultados
+void ResultsScreen::setResults(const sf::String& playerName, int finalScore)
 {
     playerText.setString("Parabens, " + playerName);
     scoreText.setString(std::to_string(finalScore));
@@ -74,6 +69,7 @@ void ResultsScreen::setResults(
     centerText(message, 416.f, 540.f);
 }
 
+// Centralizar o Texto
 void ResultsScreen::centerText(sf::Text& texto, float x, float y)
 {
     sf::FloatRect bounds = texto.getLocalBounds();
@@ -86,6 +82,7 @@ void ResultsScreen::centerText(sf::Text& texto, float x, float y)
     texto.setPosition({x, y});
 }
 
+// Desenhar a Tela de Resultados
 void ResultsScreen::draw(sf::RenderTarget& window)
 {
     window.draw(backgroundSprite);

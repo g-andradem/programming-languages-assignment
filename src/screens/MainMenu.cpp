@@ -1,6 +1,7 @@
 #include "MainMenu.hpp"
 #include <iostream>
 
+// Construtor da Tela do Menu
 MainMenu::MainMenu(): 
     backgroundSprite(backgroundTexture),
     title(font),
@@ -59,7 +60,7 @@ MainMenu::MainMenu():
     updateSelection();
 }
 
-// Seleciona Opcao no Menu
+// Eventos da Tela de Menu
 MenuAction MainMenu::handleEvent(const sf::Event& event)
 {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
@@ -100,15 +101,10 @@ MenuAction MainMenu::handleEvent(const sf::Event& event)
     return MenuAction::None;
 }
 
-void MainMenu::update(float deltaTime)
-{
-    // Atualizações do menu
-}
-
+// Desenhar a Tela de Menu
 void MainMenu::draw(sf::RenderWindow& window)
 {
     window.draw(backgroundSprite);
-
     window.draw(title);
     window.draw(subTitle);
     window.draw(playButton);
@@ -116,6 +112,7 @@ void MainMenu::draw(sf::RenderWindow& window)
     window.draw(exitButton);
 }
 
+// Atualizar Seleção dos Botões
 void MainMenu::updateSelection()
 {
     playButton.setCharacterSize(52);
@@ -134,6 +131,7 @@ void MainMenu::updateSelection()
     centerText(exitButton, 416.f);
 }
 
+// Centralizar Texto
 void MainMenu::centerText(sf::Text& text, float x)
 {
     auto bounds = text.getLocalBounds();
@@ -149,6 +147,7 @@ void MainMenu::centerText(sf::Text& text, float x)
     });
 }
 
+// Getter do Botão Selecionado
 int MainMenu::getSelectedButton() const
 {
     return selectedButton;

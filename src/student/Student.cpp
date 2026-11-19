@@ -1,25 +1,36 @@
 #include "Student.hpp"
 
+// Construtor dos Estudantes
 Student::Student(const sf::Texture& texture):
-    sprite(texture){
-}
+    sprite(texture)
+{}
 
-void Student::setScale(float width, float height){
+// Setter da Escala
+void Student::setScale(float width, float height)
+{
     sprite.setScale({width, height});
 }
 
-void Student::setOrigin(sf::Vector2f origin){
+// Setter da Origem
+void Student::setOrigin(sf::Vector2f origin)
+{
     sprite.setOrigin(origin);
 }
 
-void Student::setPosition(float x, float y){
+// Setter da Posição
+void Student::setPosition(float x, float y)
+{
     sprite.setPosition({x, y});
 }
 
-void Student::draw(sf::RenderWindow& window) {
+// Desenhar Estudantes
+void Student::draw(sf::RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-sf::FloatRect Student::getLocalBounds(){
+// Getter do Limites Locais
+sf::FloatRect Student::getLocalBounds()
+{
     return sprite.getLocalBounds();
 }
